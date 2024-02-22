@@ -5,6 +5,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack"
 
 import Home from './screens/Home'
 import ProductDetails from './screens/ProductDetails'
+import Toast from 'react-native-toast-message'
 
 const Stack = createNativeStackNavigator()
 
@@ -28,6 +29,7 @@ const Main = () => {
           />
       </Stack.Group>
     </Stack.Navigator>
+    <Toast position="top"/>
   </NavigationContainer>
   );
 };

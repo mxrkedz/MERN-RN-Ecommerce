@@ -4,6 +4,7 @@ import { defaultStyle, colors } from '../styles/styles'
 import Header from '../components/Header'
 import Carousel from "react-native-snap-carousel";
 import { Avatar, Button } from 'react-native-paper';
+import Toast from 'react-native-toast-message';
 
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = SLIDER_WIDTH;
@@ -23,7 +24,7 @@ const ProductDetails = ({ route: { params } }) => {
     console.log(params.id)
 
     const name = "Gerard Pro Max";
-    const stock = 5;
+    const stock = 30;
     const price = "98979";
     const description =
         "dasdadaasdfasfasfasfasfsafsfsafasfsafsweorwqeoiruyqwiotuunxzjk,bfxmzcnbgiwerutghiowtoy49osafaolafasfsfsfasfasfasdfsfasdfasfaslfkbasfklsbfjsafhbskfhbasfkhasbfkashfajkshfvaaskfvsjdad";
@@ -53,8 +54,14 @@ const ProductDetails = ({ route: { params } }) => {
     };
 
     const addToCartHandler = () => {
-        if(stock === 0) return ;
-        console.log("adding to cart", quantity);
+        if(stock === 0) return Toast.show({
+            type: "error",
+            text1: "Out of Stock",
+        });
+        Toast.show({
+            type: "success",
+            text1: "Added To Cart",
+        });
     }
     return (
         <View
