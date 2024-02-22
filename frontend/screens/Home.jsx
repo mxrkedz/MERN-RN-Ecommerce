@@ -6,6 +6,7 @@ import { Avatar, Button } from "react-native-paper";
 import SearchModal from '../components/SearchModal';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
+import Footer from '../components/Footer';
 
 const categories = [{ category: "Nice", _id: "asdfasdf" },
   { category: "Nice2", _id: "asdssdfcasdfassdfasdf" },
@@ -152,6 +153,7 @@ console.log(category);
           </View>
 
     </View>
+    <Footer activeRoute={"home"}/>
   </>
   );
 };
