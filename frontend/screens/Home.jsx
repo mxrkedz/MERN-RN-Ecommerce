@@ -143,7 +143,7 @@ console.log(category);
                     image={item.images[0]?.url}
                     addToCartHandler={addToCartHandler}
                     id={item._id}
-                    key={item.id}
+                    key={item._id}
                     i={index}
                     navigate= {navigate}
                   />
