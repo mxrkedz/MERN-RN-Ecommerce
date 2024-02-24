@@ -7,7 +7,7 @@ import SearchModal from '../components/SearchModal';
 import ProductCard from '../components/ProductCard';
 import { useNavigation } from '@react-navigation/native';
 import Footer from '../components/Footer';
-
+import Heading from '../components/Heading';
 const categories = [{ category: "Nice", _id: "asdfasdf" },
   { category: "Nice2", _id: "asdssdfcasdfassdfasdf" },
   { category: "Nice3", _id: "sdfasdfasfas" },
@@ -78,10 +78,7 @@ console.log(category);
         alignItems: "center",
       }}>
         {/* Heading */}
-        <View>
-          <Text style={{ fontSize: 25 }}>Our</Text>
-          <Text style={{ fontSize: 25, fontWeight: "900" }}>Products</Text>
-        </View>
+        <Heading text1="Our" text2="Products"/>
 
         {/* SearchBar */}
         <View>

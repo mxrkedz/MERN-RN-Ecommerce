@@ -9,7 +9,7 @@ import Toast from 'react-native-toast-message';
 const SLIDER_WIDTH = Dimensions.get("window").width;
 const ITEM_WIDTH = SLIDER_WIDTH;
 
-const iconOptions={
+export const iconOptions={
     size: 20,
     style : {
         borderRadius: 5,
@@ -40,7 +40,11 @@ const ProductDetails = ({ route: { params } }) => {
             id: "asfasfasfsazx",
             url: "https://scontent.fmnl17-3.fna.fbcdn.net/v/t1.15752-9/423454352_3310668132564914_5757140789262203791_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEoJFlOQOjelSrlqSd4sy-ux8hBHRgD2y_HyEEdGAPbL-E-MeJ7qV9lH0TtMoqzlHMvrmCl4mJAP47zO8WTErdu&_nc_ohc=g5Bwlm2cp5oAX8jKKoZ&_nc_ht=scontent.fmnl17-3.fna&oh=03_AdTgvnpft9rzcYlBcjpxxq3QYZbkJfD70w_V5hMRAqto-A&oe=65FEBF49",
         },
-
+        {
+            id: "asfasfasfsazx",
+            url: "https://scontent.fmnl17-3.fna.fbcdn.net/v/t1.15752-9/423454352_3310668132564914_5757140789262203791_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEoJFlOQOjelSrlqSd4sy-ux8hBHRgD2y_HyEEdGAPbL-E-MeJ7qV9lH0TtMoqzlHMvrmCl4mJAP47zO8WTErdu&_nc_ohc=g5Bwlm2cp5oAX8jKKoZ&_nc_ht=scontent.fmnl17-3.fna&oh=03_AdTgvnpft9rzcYlBcjpxxq3QYZbkJfD70w_V5hMRAqto-A&oe=65FEBF49",
+        },
+               
     ];
 
     const incrementQty = ()=>{

@@ -43,7 +43,7 @@ const Header = ({back, emptyCart=false}) => {
                 top: 40,
                 zIndex: 10,
             }}
-            onPress={emptyCart ? emptyCarthandler : ()=> navigate.navigate("cart")}
+            onPress={emptyCart ? emptyCartHandler : ()=> navigate.navigate("cart")}
         >
         <Avatar.Icon 
             style = {{
