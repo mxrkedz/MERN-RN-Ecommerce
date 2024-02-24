@@ -16,7 +16,34 @@ const loading = false;
 const Profile = ({ navigation }) => {
   const { avatar, setAvatar } = useState(null);
 
-  const navigateHandler = () => {};
+  const logoutHandler = () => {
+    console.log("Sign out");
+  };
+
+  const navigateHandler = (text) => {
+    switch (text) {
+      case "Admin":
+        navigation.navigate("adminpanel");
+        break;
+      case "Orders":
+        navigation.navigate("orders");
+        break;
+      case "Profile":
+        navigation.navigate("updateprofile");
+        break;
+      case "Password":
+        navigation.navigate("changepassword");
+        break;
+      case "Sign Out":
+        logoutHandler();
+        break;
+
+      default:
+      case "Orders":
+        navigation.navigate("orders");
+        break;
+    }
+  };
 
   return (
     <>
@@ -67,11 +94,16 @@ const Profile = ({ navigation }) => {
                   icon={"format-list-bulleted-square"}
                 />
                 <ButtonBox
+                  handler={navigateHandler}
                   icon={"view-dashboard"}
                   text={"Admin"}
                   reverse={true}
                 />
-                <ButtonBox text={"Profile"} icon={"pencil"} />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Profile"}
+                  icon={"pencil"}
+                />
               </View>
               <View
                 style={{
@@ -80,8 +112,16 @@ const Profile = ({ navigation }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <ButtonBox text={"Password"} icon={"pencil"} />
-                <ButtonBox text={"Sign Out"} icon={"exit-to-app"} />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Password"}
+                  icon={"pencil"}
+                />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Sign Out"}
+                  icon={"exit-to-app"}
+                />
               </View>
             </View>
           </>
