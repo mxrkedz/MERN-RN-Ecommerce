@@ -101,12 +101,7 @@ const SignUp = ({ navigation }) => {
               value={pinCode}
               onChangeText={setPinCode}
             />
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("forgetpassword")}
-            >
-              <Text style={styles.forget}>Forget Password?</Text>
-            </TouchableOpacity>
+
             <Button
               loading={loading}
               textColor={colors.color2}
@@ -119,7 +114,7 @@ const SignUp = ({ navigation }) => {
             <Text style={styles.or}></Text>
             <TouchableOpacity
               activeOpacity={0.8}
-              onPress={() => navigation.navigate("signup")}
+              onPress={() => navigation.navigate("login")}
             >
               <Text style={styles.link}>Log In</Text>
             </TouchableOpacity>
