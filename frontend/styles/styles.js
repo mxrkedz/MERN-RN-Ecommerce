@@ -41,40 +41,42 @@ export const inputOptions = {
   activeOutlineColor: colors.color1,
 };
 
-
 export const formStyles = StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 20,
-      backgroundColor: colors.color3,
-      borderRadius: 10,
-      justifyContent: "center",
-      elevation: 10,
-    },
-    forget: {
-      color: colors.color2,
-      marginHorizontal: 20,
-      marginVertical: 10,
-      alignSelf: "flex-end",
-      fontWeight: "100",
-    },
-    btn: {
-      backgroundColor: colors.color1,
-      margin: 20,
-      padding: 6,
-    },
-    or: {
-      alignSelf: "center",
-      fontSize: 20,
-      fontWeight: "100",
-      color: colors.color2,
-    },
-    link: {
-      color: colors.color2,
-      alignSelf: "center",
-      fontSize: 18,
-      textTransform: "uppercase",
-      marginVertical: 10,
-      marginHorizontal: 20,
-    },
-  });
+  container: {
+    flex: 1,
+    padding: 20,
+    backgroundColor: colors.color3,
+    borderRadius: 10,
+    justifyContent: "center",
+    elevation: 10,
+  },
+  forget: {
+    color: colors.color2,
+    marginHorizontal: 20,
+    marginVertical: 10,
+    alignSelf: "flex-end",
+    fontWeight: "100",
+  },
+  btn: {
+    backgroundColor: colors.color1,
+    margin: 20,
+    padding: 6,
+  },
+  or: {
+    alignSelf: "center",
+    fontSize: 20,
+    fontWeight: "100",
+    color: colors.color2,
+  },
+  link: {
+    color: colors.color2,
+    alignSelf: "center",
+    fontSize: 18,
+    textTransform: "uppercase",
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
+});
+
+export const defaultImg =
+  "https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg";
