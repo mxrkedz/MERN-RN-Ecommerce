@@ -1,29 +1,28 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
-import { StyleSheet } from "react-native";
 import {
   defaultStyle,
   colors,
   formHeading,
   inputOptions,
-  formStyles as styles
+  formStyles as styles,
 } from "../styles/styles";
 import { Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
 
-const Login = ({ navigation }) => {
+const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
 
   const loading = false;
   const submitHandler = () => {
     alert("Yeah");
+    navigation.navigate("verify");
   };
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
         <View style={{ marginBottom: 20 }}>
-          <Text style={formHeading}>Login</Text>
+          <Text style={formHeading}>Forget Password</Text>
         </View>
         <View style={styles.container}>
           <TextInput
@@ -32,13 +31,6 @@ const Login = ({ navigation }) => {
             keyboardType="email-address"
             value={email}
             onChangeText={setEmail}
-          />
-          <TextInput
-            {...inputOptions}
-            placeholder="Password"
-            secureTextEntry={true}
-            value={password}
-            onChangeText={setPassword}
           />
 
           <TouchableOpacity
@@ -50,18 +42,18 @@ const Login = ({ navigation }) => {
           <Button
             loading={loading}
             textColor={colors.color2}
-            disabled={email === "" || password === ""}
+            disabled={email === ""}
             style={styles.btn}
             onPress={submitHandler}
           >
-            Log In
+            Send OTP
           </Button>
           <Text style={styles.or}></Text>
           <TouchableOpacity
             activeOpacity={0.8}
             onPress={() => navigation.navigate("signup")}
           >
-            <Text style={styles.link}>Sign Up</Text>
+            <Text style={styles.link}>Log In</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -71,4 +63,4 @@ const Login = ({ navigation }) => {
   );
 };
 
-export default Login;
+export default ForgetPassword;
