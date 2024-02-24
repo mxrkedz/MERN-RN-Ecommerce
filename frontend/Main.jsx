@@ -14,6 +14,7 @@ import SignUp from "./screens/SignUp";
 import Profile from "./screens/Profile";
 import UpdateProfile from "./screens/UpdateProfile";
 import ChangePassword from "./screens/ChangePassword";
+import Orders from "./screens/Orders";
 
 const Stack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ const Main = () => {
           <Stack.Screen name="profile" component={Profile} />
           <Stack.Screen name="updateprofile" component={UpdateProfile} />
           <Stack.Screen name="changepassword" component={ChangePassword} />
+          <Stack.Screen name="orders" component={Orders} />
 
           {/* Password Resetting Route */}
           <Stack.Screen name="forgetpassword" component={ForgetPassword} />
