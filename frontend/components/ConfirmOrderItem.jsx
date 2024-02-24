@@ -1,36 +1,38 @@
-import { View, Text, Image,  } from 'react-native'
-import React from 'react'
+import { View, Text, Image } from "react-native";
+import React from "react";
 
 const ConfirmOrderItem = ({ price, quantity, image, name }) => {
   return (
-    <View style={{
+    <View
+      style={{
         flexDirection: "row",
         justifyContent: "space-between",
         alignItems: "center",
         margin: 10,
-    }}
+      }}
     >
-        <Image 
+      <Image
         source={{
-          uri:image
+          uri: image,
         }}
         style={{
-          width:50, 
-          height:50, 
+          width: 50,
+          height: 50,
           resizeMode: "contain",
         }}
-        />
-        <Text>{name}</Text>
-        <View 
-            style={{
-              flexDirection: "row",
-            }}>
+      />
+      <Text>{name}</Text>
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
         <Text>{quantity}</Text>
         <Text style={{ marginHorizontal: 10 }}>x</Text>
         <Text>${price}</Text>
-        </View>
+      </View>
     </View>
-  )
-}
+  );
+};
 
-export default ConfirmOrderItem
+export default ConfirmOrderItem;
