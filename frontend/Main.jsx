@@ -15,6 +15,7 @@ import Profile from "./screens/Profile";
 import UpdateProfile from "./screens/UpdateProfile";
 import ChangePassword from "./screens/ChangePassword";
 import Orders from "./screens/Orders";
+import AdminDashboard from "./screens/Admin/AdminDashboard";
 
 const Stack = createNativeStackNavigator();
 
@@ -43,6 +44,9 @@ const Main = () => {
           {/* Password Resetting Route */}
           <Stack.Screen name="forgetpassword" component={ForgetPassword} />
           <Stack.Screen name="verify" component={Verify} />
+
+      {/* Admin Routes */}
+      <Stack.Screen name="admindashboard" component={AdminDashboard} />
 
         </Stack.Group>
       </Stack.Navigator>
