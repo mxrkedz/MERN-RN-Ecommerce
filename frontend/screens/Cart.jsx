@@ -12,7 +12,7 @@ export const cartItems = [
     name: "Macbook",
     image:
       "https://scontent.fmnl17-3.fna.fbcdn.net/v/t1.15752-9/423454352_3310668132564914_5757140789262203791_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEoJFlOQOjelSrlqSd4sy-ux8hBHRgD2y_HyEEdGAPbL-E-MeJ7qV9lH0TtMoqzlHMvrmCl4mJAP47zO8WTErdu&_nc_ohc=g5Bwlm2cp5oAX8jKKoZ&_nc_ht=scontent.fmnl17-3.fna&oh=03_AdTgvnpft9rzcYlBcjpxxq3QYZbkJfD70w_V5hMRAqto-A&oe=65FEBF49",
-    productL: "asdasdwqdafqg",
+    product: "asdasdwqdafqg",
     stock: 3,
     price: "$9999",
     quantity: 2,
@@ -21,7 +21,7 @@ export const cartItems = [
     name: "Brand New Shesh",
     image:
       "https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.15752-9/426156173_308329602232698_3534526598458257776_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeF_xcK6M3OwRlyAOD3bbViu8pK-IATGxs3ykr4gBMbGzUHuEz5ZmqrL262sGjngZftfioMD6-5HhG-CBX0hl-65&_nc_ohc=gVzKYfcLxdgAX8RWtVU&_nc_ht=scontent.fcrk1-2.fna&oh=03_AdQe61gr7qf8QXQZcjGUQtFnIV9i55PC0zHwjk-We-d2gw&oe=65FEB87E",
-    productL: "asdasdasad",
+    product: "asdasdasad",
     stock: 3,
     price: "$10000",
     quantity: 5,
@@ -30,7 +30,7 @@ export const cartItems = [
     name: "Brand New Shesh",
     image:
       "https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.15752-9/426156173_308329602232698_3534526598458257776_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeF_xcK6M3OwRlyAOD3bbViu8pK-IATGxs3ykr4gBMbGzUHuEz5ZmqrL262sGjngZftfioMD6-5HhG-CBX0hl-65&_nc_ohc=gVzKYfcLxdgAX8RWtVU&_nc_ht=scontent.fcrk1-2.fna&oh=03_AdQe61gr7qf8QXQZcjGUQtFnIV9i55PC0zHwjk-We-d2gw&oe=65FEB87E",
-    productL: "asdasdaasdasdassad",
+    product: "asdasdaasdasdassad",
     stock: 3,
     price: "$10000",
     quantity: 5,
@@ -39,7 +39,7 @@ export const cartItems = [
     name: "Brand New Shesh",
     image:
       "https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.15752-9/426156173_308329602232698_3534526598458257776_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeF_xcK6M3OwRlyAOD3bbViu8pK-IATGxs3ykr4gBMbGzUHuEz5ZmqrL262sGjngZftfioMD6-5HhG-CBX0hl-65&_nc_ohc=gVzKYfcLxdgAX8RWtVU&_nc_ht=scontent.fcrk1-2.fna&oh=03_AdQe61gr7qf8QXQZcjGUQtFnIV9i55PC0zHwjk-We-d2gw&oe=65FEB87E",
-    productL: "aaaaaasdasdasad",
+    product: "aaaaaasdasdasad",
     stock: 3,
     price: "$10000",
     quantity: 5,
@@ -48,7 +48,7 @@ export const cartItems = [
     name: "Brand New Shesh",
     image:
       "https://scontent.fmnl17-3.fna.fbcdn.net/v/t1.15752-9/423454352_3310668132564914_5757140789262203791_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEoJFlOQOjelSrlqSd4sy-ux8hBHRgD2y_HyEEdGAPbL-E-MeJ7qV9lH0TtMoqzlHMvrmCl4mJAP47zO8WTErdu&_nc_ohc=g5Bwlm2cp5oAX8jKKoZ&_nc_ht=scontent.fmnl17-3.fna&oh=03_AdTgvnpft9rzcYlBcjpxxq3QYZbkJfD70w_V5hMRAqto-A&oe=65FEBF49",
-    productL: "asaaaaaaadasdasad",
+    product: "asaaaaaaadasdasad",
     stock: 3,
     price: "$10000",
     quantity: 5,
@@ -57,7 +57,7 @@ export const cartItems = [
     name: "Brand New Shesh",
     image:
       "https://scontent.fmnl30-2.fna.fbcdn.net/v/t1.15752-9/404977719_3240266302785070_6296636051138423641_n.jpg?_nc_cat=111&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeHdPNdi5tVaCyPDwZb3Aw9bT_knaufeBghP-Sdq594GCAS5QeWrhsGHX4SlTMjyOaOlil0wjEXUpbb4FsWfi464&_nc_ohc=2-zmxu2Jpb8AX_AhdQy&_nc_ht=scontent.fmnl30-2.fna&oh=03_AdQY6UZT_Wywy0TdBZ6qTfAP8FrJusGSWmIOQXot_S6Ljg&oe=6601A935",
-    productL: "asdaasdasdasdasdassdasad",
+    product: "asdaasdasdasdasdassdasad",
     stock: 3,
     price: "$10000",
     quantity: 5,
