@@ -7,6 +7,7 @@ import ButtonBox from '../../components/ButtonBox'
 import { products } from '../Home'
 import ProductListItem from '../../components/ProductListItem'
 import { useNavigation } from '@react-navigation/native'
+import Chart from '../../components/Chart'
 
 const AdminDashboard = (navigation) => {
   const loading = false;
@@ -29,7 +30,24 @@ const AdminDashboard = (navigation) => {
     },
   });
 
-  const navigationHandler = () => {};
+  const navigationHandler = (text) => {
+    switch (text) {
+      case "Category":
+        navigate.navigate("categories");
+        break;
+      case "All Orders":
+        navigate.navigate("adminorders");
+        break;
+      case "Product":
+        navigate.navigate("newproduct");
+        break;
+
+      default:
+        navigate.navigate("adminorders");
+        break;
+    }
+  };
+
   const navigate = useNavigation();
 
   const deleteProductHandler = (id) =>{
@@ -53,7 +71,12 @@ const AdminDashboard = (navigation) => {
           borderRadius: 20,
           alignItems: "center",
         }}>
+
+        <Chart inStock={12} outOfStock={2} />
+
         </View>
+
+        
 
         <View>
           <View style={{ 
