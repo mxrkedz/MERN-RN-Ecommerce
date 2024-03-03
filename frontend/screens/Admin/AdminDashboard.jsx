@@ -6,10 +6,9 @@ import Loader from '../../components/Loader'
 import ButtonBox from '../../components/ButtonBox'
 import { products } from '../Home'
 import ProductListItem from '../../components/ProductListItem'
-import { useNavigation } from '@react-navigation/native'
 import Chart from '../../components/Chart'
 
-const AdminDashboard = (navigation) => {
+const AdminDashboard = ({navigation}) => {
   const loading = false;
 
   const styles = StyleSheet.create({
@@ -33,22 +32,21 @@ const AdminDashboard = (navigation) => {
   const navigationHandler = (text) => {
     switch (text) {
       case "Category":
-        navigate.navigate("categories");
+        navigation.navigate("categories");
         break;
       case "All Orders":
-        navigate.navigate("adminorders");
+        navigation.navigate("adminorders");
         break;
       case "Product":
-        navigate.navigate("newproduct");
+        navigation.navigate("newproduct");
         break;
 
       default:
-        navigate.navigate("adminorders");
+        navigation.navigate("adminorders");
         break;
     }
   };
 
-  const navigate = useNavigation();
 
   const deleteProductHandler = (id) =>{
     console.log('Deleting Product with ID: ${id}')
@@ -111,7 +109,7 @@ const AdminDashboard = (navigation) => {
             {
               products.map((item,index) => (
               <ProductListItem 
-              navigate= {navigate}
+              navigate= {navigation}
               deleteHandler = {deleteProductHandler}
               key ={item._id} 
               id = {item.id}
