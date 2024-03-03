@@ -20,6 +20,13 @@ const ProductImages = ({ navigation, route }) => {
   };
 
   const submitHandler = () => {};
+
+  useEffect(() => {
+    if (route.params?.image) {
+      setImage(route.params.image);
+      setImageChanged(true);
+    }
+  }, [route.params]);
   
   return (
     <View

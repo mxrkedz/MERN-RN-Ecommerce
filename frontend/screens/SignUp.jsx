@@ -11,7 +11,7 @@ import {
 import { Avatar, Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
 
-const SignUp = ({ navigation }) => {
+const SignUp = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -29,6 +29,11 @@ const SignUp = ({ navigation }) => {
     alert("Yeah");
     navigation.navigate("verify");
   };
+
+  useEffect(() => {
+    if (route.params?.image) setAvatar(route.params.image);
+  }, [route.params]);
+  
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>

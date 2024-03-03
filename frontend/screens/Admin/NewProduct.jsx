@@ -31,6 +31,9 @@ const NewProduct = ({ navigation, route }) => {
     console.log(name, description, price, stock, categoryID);
   };
 
+  useEffect(() => {
+    if (route.params?.image) setImage(route.params.image);
+  }, [route.params]);
 
   return (
     <>
