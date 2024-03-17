@@ -8,19 +8,22 @@ export const login = asyncError(async  (req,res,next) => {
     const user = await User.findOne({ email }).select("+password");
 
 
-    if (!user) {return res.status(400).json({sucess: false, message: "Incorrect Email"});
+    if (!user) {return res.status(400).json({sucess: false, message: "Incorrect Email or Password"});
       }
 
     //Handle error
     const isMatched = await user.comparePassword(password);
 
     if (!isMatched) {
-      return next(new Error("Incorrect Password", 400));
+      return next(new Error("Incorrect Email or Password", 400));
     }
+
+    const token = user.generateToken();
 
     res.status(200).json({
         success: true,
         message: `Welcome back, ${user.name}`,
+        token,
     });
 
 
