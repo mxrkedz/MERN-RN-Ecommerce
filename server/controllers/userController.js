@@ -1,6 +1,7 @@
 import { asyncError } from "../middlewares/error.js";
 import {User} from "../models/user.js"
 import ErrorHandler from "../utils/error.js";
+import { sendToken } from "../utils/features.js";
 
 
 export const login = asyncError(async  (req,res,next) => {
@@ -18,24 +19,19 @@ export const login = asyncError(async  (req,res,next) => {
       return next(new Error("Incorrect Email or Password", 400));
     }
 
-    const token = user.generateToken();
-
-    res.status(200).json({
-        success: true,
-        message: `Welcome back, ${user.name}`,
-        token,
-    });
-
-
+    sendToken(user,res,`Welcome back, ${user.name}`, 200 );
 });
 
 export const register = asyncError(async (req,res,next) => {
     const { name, email, password, address, city, country, pinCode } = req.body;
 
+
+   let user = await User.findOne({ email });
+   
+   if (user) return next(new ErrorHandler("User Already Exist", 400));
     //Add cloudinary here
 
-
-    await User.create({
+        user = await User.create({
         name,
         email,
         password,
@@ -44,8 +40,8 @@ export const register = asyncError(async (req,res,next) => {
         country,
         pinCode,
       });
-    res.status(201).json({
-        success: true,
-        message: "Registered successfully"
-    })
+
+      sendToken(user,res,`Registered successfully`, 201 );
+
+
 });
