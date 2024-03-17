@@ -46,7 +46,12 @@ export const register = asyncError(async (req,res,next) => {
 
 });
 
-export const getMyProfile = asyncError(async (req,res,next)=>{
-  res.send("Working");
-  
+export const getMyProfile = asyncError(async (req,res,next)=>{ 
+  const user = await User.findById(req.user._id);
+
+
+  res.status(200).json({
+    success: true, user, 
+  })
+
 })
