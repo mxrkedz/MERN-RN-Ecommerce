@@ -45,3 +45,8 @@ export const register = asyncError(async (req,res,next) => {
 
 
 });
+
+export const getMyProfile = asyncError(async (req,res,next)=>{
+  res.send("Working");
+  
+})
