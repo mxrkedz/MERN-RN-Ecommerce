@@ -1,4 +1,4 @@
-import { asyncError } from "../middlewares/error.js";
+import { asyncError, errorMiddleware } from "../middlewares/error.js";
 import {User} from "../models/user.js"
 import ErrorHandler from "../utils/error.js";
 import { cookieOptions, sendToken } from "../utils/features.js";
@@ -9,8 +9,11 @@ export const login = asyncError(async  (req,res,next) => {
     const user = await User.findOne({ email }).select("+password");
 
 
-    if (!user) {return res.status(400).json({sucess: false, message: "Incorrect Email or Password"});
-      }
+    if (!user) {
+      return next(new Error("Incorrect Email or Password", 400));
+   }
+
+    if (!password) return next(new ErrorHandler("Please Enter The Password", 400));
 
     //Handle error
     const isMatched = await user.comparePassword(password);
@@ -60,7 +63,6 @@ export const logOut = asyncError(async (req,res,next)=>{
 
 });
 
-
 export const getMyProfile = asyncError(async (req,res,next)=>{ 
   const user = await User.findById(req.user._id);
 
@@ -70,3 +72,46 @@ export const getMyProfile = asyncError(async (req,res,next)=>{
   });
 
 });
+
+export const updateProfile = asyncError(async (req,res,next)=>{ 
+  const user = await User.findById(req.user._id);
+
+  const {name, email, address, city, country, pinCode} = req.body
+
+  if (name) user.name = name;
+  if (email) user.email = email;
+  if (address) user.address = address;
+  if (city) user.city = city;
+  if (country) user.country = country;
+  if (pinCode) user.pinCode = pinCode;
+
+  await user.save();
+
+  res.status(200).json({
+    success: true, user, 
+    message:"Profile Update Succesfully",
+  });
+
+});
+
+export const changePassword = asyncError(async (req,res,next)=>{ 
+  const user = await User.findById(req.user._id).select("+password");
+
+  const {oldPassword, newPassword} = req.body;
+
+  if (!oldPassword || !newPassword) return next(new ErrorHandler("Please Enter The Old Password & New Password", 400));
+
+  const isMatched = await user.comparePassword(oldPassword);
+
+  if(!isMatched) return next(new ErrorHandler("Incorrect Old Password", 400));
+
+  user.password= newPassword;
+  await user.save();
+
+  res.status(200).json({
+    success: true, user, 
+    message:"Password Changed Successfully"
+  });
+
+});
+
