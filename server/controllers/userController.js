@@ -1,7 +1,7 @@
-import { asyncError} from "../middlewares/error.js";
+import { asyncError, errorMiddleware} from "../middlewares/error.js";
 import {User} from "../models/user.js"
 import ErrorHandler from "../utils/error.js";
-import { cookieOptions, getDataUri, sendToken } from "../utils/features.js";
+import { cookieOptions, getDataUri, sendEmail, sendToken } from "../utils/features.js";
 import cloudinary from "cloudinary";
 
 export const login = asyncError(async  (req,res,next) => {
@@ -146,4 +146,45 @@ export const updatePicture = asyncError(async (req,res,next)=>{
   });
 
 });
+
+export const forgetPassword = asyncError(async (req,res,next)=>{ 
+  const {email} = req.body;
+  const user = await User.findOne({ email });
+
+  if (!user) return next(new ErrorHandler("Incorrect Email", 404));
+//max,min 2000,10000
+  const randomNumber= Math.random()* (999999-100000)+100000;
+  const otp = Math.floor(randomNumber);
+  const otp_expire = 15 * 60 * 1000;
+
+  user.otp=otp;
+  user.otp_expire = new Date(Date.now() + otp_expire);
+  await user.save();
+  console.log(otp);
+  const message = `Your OTP for Resetting Password is ${otp}.\n Please ignore if you haven't requested this.` ;
+  try{
+    await sendEmail("OTP For Resetting Password",user.email,message);
+  } catch (error) {
+    user.otp = null;
+    user.otp_expire = null;
+    await user.save();
+    return next(error);
+  }
+  //sendEmail()
+
+  res.status(200).json({
+    success: true, user, 
+    message:`Email Sent To ${user.email}`,
+  });
+});
+
+export const resetPassword = asyncError(async (req,res,next)=>{ 
+  const user = await User.findById(req.user._id);
+
+
+  res.status(200).json({
+    success: true, user, 
+  });
+});
+
 
