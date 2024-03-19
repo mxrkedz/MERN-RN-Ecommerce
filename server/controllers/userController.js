@@ -160,7 +160,8 @@ export const forgetPassword = asyncError(async (req,res,next)=>{
   user.otp=otp;
   user.otp_expire = new Date(Date.now() + otp_expire);
   await user.save();
-  console.log(otp);
+
+
   const message = `Your OTP for Resetting Password is ${otp}.\n Please ignore if you haven't requested this.` ;
   try{
     await sendEmail("OTP For Resetting Password",user.email,message);
@@ -173,17 +174,38 @@ export const forgetPassword = asyncError(async (req,res,next)=>{
   //sendEmail()
 
   res.status(200).json({
-    success: true, user, 
+    success: true, 
     message:`Email Sent To ${user.email}`,
   });
 });
 
-export const resetPassword = asyncError(async (req,res,next)=>{ 
-  const user = await User.findById(req.user._id);
+export const resetPassword = asyncError(async (req,res,next)=>{
+  
+  const {otp,password} = req.body;
 
+  const user = await User.findOne({
+    otp,
+    otp_expire: {
+      $gt:Date.now(),
+    },
+  });
+   
+
+  if (!user)
+    return next(new ErrorHandler("Incorret OTP or has been expired", 400));
+
+  if (!password) 
+    return next(new ErrorHandler("Please Enter New Password", 400));
+
+    user.password = password;
+    user.otp = undefined;
+    user.otp_expire = undefined;
+
+    await user.save();
 
   res.status(200).json({
-    success: true, user, 
+    success: true,
+    message:"Password Change Successfully, You can login now", 
   });
 });
 
