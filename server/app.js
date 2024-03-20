@@ -18,8 +18,9 @@ app.get("/", (req, res, next) => {
 })
 
 // Importing routers Here
-import user from "./routes/user.js"
-
-app.use("/api/v1/user",user)
+import user from "./routes/user.js";
+import product from "./routes/product.js";
+app.use("/api/v1/user",user);
+app.use("/api/v1/product",product);
 
 app.use(errorMiddleware)
