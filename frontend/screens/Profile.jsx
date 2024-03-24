@@ -1,24 +1,23 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { defaultStyle, formHeading, colors } from "../styles/styles";
+import { defaultStyle, formHeading, colors, defaultImg } from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
-import { useDispatch } from "react-redux";
-import { logout } from "../redux/actions/userAction";
-import { useMessageAndErrorUser } from "../utils/hooks";
-
-const user = {
-  name: "Mark",
-  email: "mark@gmail.com",
-};
-
+import { useDispatch, useSelector } from "react-redux";
+import { loadUser, logout } from "../redux/actions/userAction";
+import { useMessageAndErrorOther, useMessageAndErrorUser } from "../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
+import mime from "mime";
+import { updatePic } from "../redux/actions/otherAction";
 
 const Profile = ({ navigation, route }) => {
-  const  [avatar, setAvatar]  = useState(null);
+  const { user } = useSelector((state) => state.user);
+  const  [avatar, setAvatar]  = useState(user?.avatar ? user.avatar.url : defaultImg);
 
   const dispatch = useDispatch();
+  const isFocused = useIsFocused();
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
   const logoutHandler = () => {
@@ -50,12 +49,29 @@ const Profile = ({ navigation, route }) => {
     }
   };
 
+  const loadingPic = useMessageAndErrorOther(dispatch, null, null, loadUser);
+
   useEffect(() => {
     if (route.params?.image) {
       setAvatar(route.params.image);
       // dispatch updatePic Here
+      const myForm = new FormData();
+      myForm.append("file", {
+        uri: route.params.image,
+        type: mime.getType(route.params.image),
+        name: route.params.image.split("/").pop(),
+      });
+      dispatch(updatePic(myForm));
     }
-  }, [route.params]);
+
+    dispatch(loadUser());
+  }, [route.params, dispatch, isFocused]);
+
+  useEffect(() => {
+    if (user?.avatar) {
+      setAvatar(user.avatar.url);
+    }
+  }, [user]);
 
   return (
     <>
@@ -75,11 +91,15 @@ const Profile = ({ navigation, route }) => {
                 style={{ backgroundColor: colors.color1 }}
               />
               <TouchableOpacity
+                disabled={loadingPic}
                 onPress={() =>
                   navigation.navigate("camera", { updateProfile: true })
                 }
               >
-                <Button textColor={colors.color1}>Change Photo</Button>
+                <Button 
+                disabled={loadingPic}
+                loading={loadingPic} 
+                textColor={colors.color1}>Change Photo</Button>
               </TouchableOpacity>
 
               <Text style={styles.name}>{user?.name}</Text>
@@ -105,12 +125,14 @@ const Profile = ({ navigation, route }) => {
                   text={"Orders"}
                   icon={"format-list-bulleted-square"}
                 />
-                <ButtonBox
-                  handler={navigateHandler}
-                  icon={"view-dashboard"}
-                  text={"Admin"}
-                  reverse={true}
-                />
+                {user?.role === "admin" && (
+                  <ButtonBox
+                    handler={navigateHandler}
+                    icon={"view-dashboard"}
+                    text={"Admin"}
+                    reverse={true}
+                  />
+                )}
                 <ButtonBox
                   handler={navigateHandler}
                   text={"Profile"}
