@@ -1,15 +1,19 @@
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
-  defaultStyle,
   colors,
+  defaultStyle,
   formHeading,
   inputOptions,
-  defaultImg,
   formStyles as styles,
+  defaultImg,
 } from "../styles/styles";
 import { Avatar, Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
+import mime from "mime";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/actions/userAction";
+import { useMessageAndErrorUser } from "../utils/hooks";
 
 const SignUp = ({ navigation, route }) => {
   const [avatar, setAvatar] = useState("");
@@ -21,25 +25,46 @@ const SignUp = ({ navigation, route }) => {
   const [country, setCountry] = useState("");
   const [pinCode, setPinCode] = useState("");
 
-  const loading = false;
+  const dispatch = useDispatch();
 
   const disableBtn =
     !name || !email || !password || !address || !city || !country || !pinCode;
+
   const submitHandler = () => {
-    alert("Yeah");
-    navigation.navigate("verify");
+    const myForm = new FormData();
+
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("password", password);
+    myForm.append("address", address);
+    myForm.append("city", city);
+    myForm.append("country", country);
+    myForm.append("pinCode", pinCode);
+
+    if (avatar !== "") {
+      myForm.append("file", {
+        uri: avatar,
+        type: mime.getType(avatar),
+        name: avatar.split("/").pop(),
+      });
+    }
+
+    dispatch(register(myForm));
   };
+
+  const loading = useMessageAndErrorUser(navigation, dispatch, "profile");
 
   useEffect(() => {
     if (route.params?.image) setAvatar(route.params.image);
   }, [route.params]);
-  
   return (
     <>
-      <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
+      <View style={defaultStyle}>
+        {/* Heading */}
         <View style={{ marginBottom: 20 }}>
           <Text style={formHeading}>Sign Up</Text>
         </View>
+
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
@@ -51,12 +76,17 @@ const SignUp = ({ navigation, route }) => {
         >
           <View style={{ minHeight: 900 }}>
             <Avatar.Image
-              style={{ alignSelf: "center", backgroundColor: colors.color1 }}
+              style={{
+                alignSelf: "center",
+                backgroundColor: colors.color1,
+              }}
               size={80}
-              source={{ uri: avatar ? avatar : defaultImg }}
+              source={{
+                uri: avatar ? avatar : defaultImg,
+              }}
             />
             <TouchableOpacity onPress={() => navigation.navigate("camera")}>
-              <Button textColor={colors.color2}>Change Photo</Button>
+              <Button textColor={colors.color1}>Change Photo</Button>
             </TouchableOpacity>
 
             <TextInput
@@ -100,6 +130,7 @@ const SignUp = ({ navigation, route }) => {
               value={country}
               onChangeText={setCountry}
             />
+
             <TextInput
               {...inputOptions}
               placeholder="Pin Code"
@@ -116,7 +147,9 @@ const SignUp = ({ navigation, route }) => {
             >
               Sign Up
             </Button>
-            <Text style={styles.or}></Text>
+
+            <Text style={styles.or}>OR</Text>
+
             <TouchableOpacity
               activeOpacity={0.8}
               onPress={() => navigation.navigate("login")}
