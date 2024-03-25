@@ -45,15 +45,28 @@ const ProductDetails = ({ route: { params } }) => {
     };
 
     const addToCartHandler = () => {
-        if(stock === 0) return Toast.show({
+        if (stock === 0)
+          return Toast.show({
             type: "error",
-            text1: "Out of Stock",
+            text1: "Out Of Stock",
+          });
+        dispatch({
+          type: "addToCart",
+          payload: {
+            product: params.id,
+            name,
+            price,
+            image: images[0]?.url,
+            stock,
+            quantity,
+          },
         });
         Toast.show({
-            type: "success",
-            text1: "Added To Cart",
+          type: "success",
+          text1: "Added To Cart",
         });
-    }
+      };
+    
 
     useEffect(() => {
         dispatch(getProductDetails(params.id));
