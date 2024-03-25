@@ -5,50 +5,13 @@ import Header from "../components/Header";
 import Loader from "../components/Loader";
 import { Headline } from "react-native-paper";
 import OrderItem from "../components/OrderItem";
+import { useIsFocused } from "@react-navigation/native";
+import { useGetOrders } from "../utils/hooks";
 
-export const orders = [
-  {
-    _id: "sdasdasdasdad",
-    shippingInfo: {
-      address: "1234 street",
-      city: "taguig",
-      country: "pilipins",
-      pinCode: "1400",
-    },
-    createdAt: "02-25-2024T2324",
-    orderStatus: "Processing",
-    paymentMethod: "COD",
-    totalAmount: 20000,
-  },
-  {
-    _id: "werfwsujik",
-    shippingInfo: {
-      address: "1234 street",
-      city: "3331taguig",
-      country: "pilipins",
-      pinCode: "1400",
-    },
-    createdAt: "02-25-2024T2324",
-    orderStatus: "Processing",
-    paymentMethod: "COD",
-    totalAmount: 20000,
-  },
-  {
-    _id: "yjtyjredged",
-    shippingInfo: {
-      address: "1234 street",
-      city: "112taguig",
-      country: "pilipins",
-      pinCode: "1400",
-    },
-    createdAt: "02-25-2024T2324",
-    orderStatus: "Processing",
-    paymentMethod: "COD",
-    totalAmount: 121212,
-  },
-];
+
 const Orders = () => {
-  const loading = false;
+  const isFocused = useIsFocused();
+  const { loading, orders } = useGetOrders(isFocused);
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>

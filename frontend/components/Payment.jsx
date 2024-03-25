@@ -5,14 +5,59 @@ import Header from "./Header";
 import Heading from "./Heading";
 import { StyleSheet } from "react-native";
 import { Button, RadioButton } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { placeOrder } from "../redux/actions/otherAction";
+import { useMessageAndErrorOther } from "../utils/hooks";
+
 const Payment = ({ navigation, route }) => {
-  const [paymentMethod, setPaymentMethod] = useState("");
-  const isAuthenticated = false;
+  const [paymentMethod, setPaymentMethod] = useState("COD");
+
+  const dispatch = useDispatch();
+
+  const { isAuthenticated, user } = useSelector((state) => state.user);
+  const { cartItems } = useSelector((state) => state.cart);
+
   const redirectToLogin = () => {
     navigation.navigate("login");
   };
-  const codHandler = () => {};
+
+   const codHandler = (paymentInfo) => {
+    const shippingInfo = {
+      address: user.address,
+      city: user.city,
+      country: user.country,
+      pinCode: user.pinCode,
+    };
+
+    const itemsPrice = route.params.itemsPrice;
+    const shippingCharges = route.params.shippingCharges;
+    const taxPrice = route.params.tax;
+    const totalAmount = route.params.totalAmount;
+
+    dispatch(
+      placeOrder(
+        cartItems,
+        shippingInfo,
+        paymentMethod,
+        itemsPrice,
+        taxPrice,
+        shippingCharges,
+        totalAmount,
+        paymentInfo
+      )
+    );
+  };
+
   const onlineHandler = () => {};
+
+  const loading = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "profile",
+    () => ({
+      type: "clearCart",
+    })
+  );
 
   return (
     <View style={defaultStyle}>
@@ -38,15 +83,18 @@ const Payment = ({ navigation, route }) => {
         </RadioButton.Group>
       </View>
       <TouchableOpacity
+        disabled={loading}
         onPress={
           !isAuthenticated
             ? redirectToLogin
             : paymentMethod === "COD"
-            ? codHandler
+            ? () => codHandler()
             : onlineHandler
         }
       >
         <Button
+          loading={loading}
+          disabled={loading}
           style={styles.btn}
           textColor={colors.color2}
           icon={

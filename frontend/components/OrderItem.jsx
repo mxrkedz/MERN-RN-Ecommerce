@@ -10,7 +10,7 @@ const OrderItem = ({
   orderedOn,
   status,
   paymentMethod,
-  udpateHandler,
+  updateHandler,
   admin = false,
   loading,
   i = 0,
@@ -47,7 +47,7 @@ const OrderItem = ({
             alignSelf: "center",
             marginTop: 10,
           }}
-          onPress={() => udpateHandler(id)}
+          onPress={() => updateHandler(id)}
           loading={loading}
           disabled={loading}
         >

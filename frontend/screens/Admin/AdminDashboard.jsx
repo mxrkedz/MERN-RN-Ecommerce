@@ -4,9 +4,10 @@ import { colors, defaultStyle, formHeading } from '../../styles/styles'
 import Header from '../../components/Header'
 import Loader from '../../components/Loader'
 import ButtonBox from '../../components/ButtonBox'
-import { products } from '../Home'
 import ProductListItem from '../../components/ProductListItem'
 import Chart from '../../components/Chart'
+
+const products = [];
 
 const AdminDashboard = ({navigation}) => {
   const loading = false;

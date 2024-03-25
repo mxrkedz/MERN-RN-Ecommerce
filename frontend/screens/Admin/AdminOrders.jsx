@@ -4,15 +4,27 @@ import { colors, defaultStyle, formHeading } from "../../styles/styles";
 import Header from "../../components/Header";
 import Loader from "../../components/Loader";
 import OrderItem from "../../components/OrderItem";
-import { orders } from "../Orders";
-
+import { useGetOrders, useMessageAndErrorOther } from "../../utils/hooks";
+import { useIsFocused } from "@react-navigation/native";
+import { Headline } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { processOrder } from "../../redux/actions/otherAction";
 
 const AdminOrders = ({ navigation }) => {
-  const loading= false;
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
 
-  const processOrderLoading = false;
+  const { loading, orders } = useGetOrders(isFocused, true);
 
-  const updateHandler = () => {};
+  const processOrderLoading = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "admindashboard"
+  );
+
+  const updateHandler = (id) => {
+    dispatch(processOrder(id));
+  };
   return (
     <View
       style={{
