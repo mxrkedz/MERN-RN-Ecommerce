@@ -11,23 +11,20 @@ import {
 import Loader from "../../components/Loader";
 import { Button, TextInput } from "react-native-paper";
 import SelectComponent from "../../components/SelectComponent";
+import { useIsFocused } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
+import { getProductDetails } from "../../redux/actions/productAction";
+import { updateProduct } from "../../redux/actions/otherAction";
 
 
 const UpdateProduct = ({ navigation, route }) => {
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
+  const [visible, setVisible] = useState(false);
 
-  const loading = false;
-  const loadingOther = false;
+  const { product, loading } = useSelector((state) => state.product);
 
-  const images = [
-    {
-      url: "https://scontent.fmnl17-3.fna.fbcdn.net/v/t1.15752-9/423454352_3310668132564914_5757140789262203791_n.png?_nc_cat=103&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeEoJFlOQOjelSrlqSd4sy-ux8hBHRgD2y_HyEEdGAPbL-E-MeJ7qV9lH0TtMoqzlHMvrmCl4mJAP47zO8WTErdu&_nc_ohc=g5Bwlm2cp5oAX8jKKoZ&_nc_ht=scontent.fmnl17-3.fna&oh=03_AdTgvnpft9rzcYlBcjpxxq3QYZbkJfD70w_V5hMRAqto-A&oe=65FEBF49",
-      _id: "vasvawrfawf",
-    },
-    {
-      url: "https://scontent.fcrk1-2.fna.fbcdn.net/v/t1.15752-9/426156173_308329602232698_3534526598458257776_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=8cd0a2&_nc_eui2=AeF_xcK6M3OwRlyAOD3bbViu8pK-IATGxs3ykr4gBMbGzUHuEz5ZmqrL262sGjngZftfioMD6-5HhG-CBX0hl-65&_nc_ohc=gVzKYfcLxdgAX8RWtVU&_nc_ht=scontent.fcrk1-2.fna&oh=03_AdQe61gr7qf8QXQZcjGUQtFnIV9i55PC0zHwjk-We-d2gw&oe=65FEB87E",
-      _id: "asvasedtwsqs",
-    }
-  ]
 
   const [id] = useState(route.params.id);
   const [name, setName] = useState("");
@@ -36,16 +33,35 @@ const UpdateProduct = ({ navigation, route }) => {
   const [stock, setStock] = useState("");
   const [category, setCategory] = useState("Laptop");
   const [categoryID, setCategoryID] = useState("");
-  const [categories, setCategories] = useState([
-    {_id: "afasdfasd", category: "Laptop"},
-    {_id: "asfsvxz", category: "Footwear"},
-    {_id: "nrtidrfg", category: "Cloths"},
-]);
-  const [visible, setVisible] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  useSetCategories(setCategories, isFocused);
+
 
   const submitHandler = () => {
-    console.log(name, description, price, stock, categoryID);
+    dispatch(updateProduct(id, name, description, price, stock, categoryID));
   };
+
+  const loadingOther = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "admindashboard"
+  );
+
+  useEffect(() => {
+    dispatch(getProductDetails(id));
+  }, [dispatch, id, isFocused]);
+
+  useEffect(() => {
+    if (product) {
+      setName(product.name);
+      setDescription(product.description);
+      setPrice(String(product.price));
+      setStock(String(product.stock));
+      setCategory(product.category?.category);
+      setCategoryID(product.category?._id);
+    }
+  }, [product]);
 
   return (
     <>
@@ -83,7 +99,7 @@ const UpdateProduct = ({ navigation, route }) => {
                 onPress={() =>
                   navigation.navigate("productimages", {
                     id,
-                    images: images,
+                    images: product.images,
                   })
                 }
                 textColor={colors.color1}

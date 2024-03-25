@@ -6,29 +6,23 @@ import Loader from '../../components/Loader'
 import ButtonBox from '../../components/ButtonBox'
 import ProductListItem from '../../components/ProductListItem'
 import Chart from '../../components/Chart'
+import { useDispatch } from 'react-redux'
+import { useIsFocused } from '@react-navigation/native'
+import { useAdminProducts, useMessageAndErrorOther } from '../../utils/hooks'
+import { deleteProduct } from '../../redux/actions/otherAction'
+import { getAdminProducts } from '../../redux/actions/productAction'
 
-const products = [];
 
 const AdminDashboard = ({navigation}) => {
-  const loading = false;
+  const dispatch = useDispatch();
+  const isFocused = useIsFocused();
 
-  const styles = StyleSheet.create({
-    container: {
-      backgroundColor: colors.color3,
-      flexDirection: "row",
-      justifyContent: "space-between",
-      height: 40,
-      alignItems: "center",
-      borderRadius: 5,
-      padding: 10,
-    },
-  
-    text: {
-      width: 40,
-      color: colors.color2,
-      fontWeight: "900",
-    },
-  });
+  const { loading, products, inStock, outOfStock } = useAdminProducts(
+    dispatch,
+    isFocused
+  );
+
+
 
   const navigationHandler = (text) => {
     switch (text) {
@@ -49,9 +43,16 @@ const AdminDashboard = ({navigation}) => {
   };
 
 
-  const deleteProductHandler = (id) =>{
-    console.log('Deleting Product with ID: ${id}')
-  }
+  const deleteProductHandler = (id) => {
+    dispatch(deleteProduct(id));
+  };
+
+  const loadingDelete = useMessageAndErrorOther(
+    dispatch,
+    null,
+    null,
+    getAdminProducts
+  );
 
   return (
     <View style={defaultStyle}>
@@ -71,7 +72,7 @@ const AdminDashboard = ({navigation}) => {
           alignItems: "center",
         }}>
 
-        <Chart inStock={12} outOfStock={2} />
+        <Chart inStock={inStock} outOfStock={outOfStock} />
 
         </View>
 
@@ -107,18 +108,18 @@ const AdminDashboard = ({navigation}) => {
 
       <ScrollView showsVerticalScrollIndicator={false}>
         <View>
-            {
+            {!loadingDelete &&
               products.map((item,index) => (
               <ProductListItem 
               navigate= {navigation}
               deleteHandler = {deleteProductHandler}
               key ={item._id} 
-              id = {item.id}
+              id = {item._id}
               i = {index}
               price = {item.price} 
               stock = {item.stock} 
               name = {item.name} 
-              category = {item.category}
+              category = {item.category?.category}
               imgSrc = {item.images[0].url}/>))
             }
 
@@ -133,4 +134,22 @@ const AdminDashboard = ({navigation}) => {
   )
 }
 
-export default AdminDashboard
+export default AdminDashboard;
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: colors.color3,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    height: 40,
+    alignItems: "center",
+    borderRadius: 5,
+    padding: 10,
+  },
+
+  text: {
+    width: 40,
+    color: colors.color2,
+    fontWeight: "900",
+  },
+});

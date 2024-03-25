@@ -10,11 +10,17 @@ import {
 } from "../../styles/styles";
 import { Avatar, Button, TextInput } from "react-native-paper";
 import SelectComponent from "../../components/SelectComponent";
+import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
+import { useDispatch } from "react-redux";
+import { useIsFocused } from "@react-navigation/native";
+import mime from "mime";
+import { createProduct } from "../../redux/actions/otherAction";
 
 
 const NewProduct = ({ navigation, route }) => {
 
-    const loading = false;
+  const isFocused = useIsFocused();
+  const dispatch = useDispatch();
 
   const [image, setImage] = useState("");
   const [name, setName] = useState("");
@@ -26,10 +32,29 @@ const NewProduct = ({ navigation, route }) => {
   const [categories, setCategories] = useState([]);
   const [visible, setVisible] = useState(false);
 
+  useSetCategories(setCategories, isFocused);
 
-  const submitHandler = () => {
-    console.log(name, description, price, stock, categoryID);
-  };
+  const disableBtnCondition =
+  !name || !description || !price || !stock || !image;
+
+const submitHandler = () => {
+  const myForm = new FormData();
+  myForm.append("name", name);
+  myForm.append("description", description);
+  myForm.append("price", price);
+  myForm.append("stock", stock);
+  myForm.append("file", {
+    uri: image,
+    type: mime.getType(image),
+    name: image.split("/").pop(),
+  });
+
+  if (categoryID) myForm.append("category", categoryID);
+
+  dispatch(createProduct(myForm));
+};
+
+  const loading = useMessageAndErrorOther(dispatch, navigation, "admindashboard");
 
   useEffect(() => {
     if (route.params?.image) setImage(route.params.image);
@@ -149,6 +174,7 @@ const NewProduct = ({ navigation, route }) => {
               }}
               onPress={submitHandler}
               loading={loading}
+              disabled={disableBtnCondition || loading}
             >
               Create
             </Button>
