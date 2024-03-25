@@ -9,14 +9,18 @@ import {
 } from "../styles/styles";
 import { Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
+import { useDispatch } from "react-redux";
+import { useMessageAndErrorOther } from "../utils/hooks";
+import { forgetPassword } from "../redux/actions/otherAction";
 
 const ForgetPassword = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const dispatch = useDispatch();
 
-  const loading = false;
+  const loading = useMessageAndErrorOther(dispatch, navigation, "verify");
+
   const submitHandler = () => {
-    alert("Yeah");
-    navigation.navigate("verify");
+    dispatch(forgetPassword(email));
   };
   return (
     <>
