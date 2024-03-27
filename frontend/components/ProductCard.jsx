@@ -25,18 +25,18 @@ const ProductCard = ({
             margin: 20,
             borderRadius: 20,
             height: 400,
-            backgroundColor: i%2===0? colors.color1 : colors.color2,
+            backgroundColor: colors.color2,
         }}>
             <Image source = {{
                 uri: image,
             }}
             style = {{
-                width: "100%",
-                height: 200,
+                width: 200,
+                height: "100%",
                 resizeMode: "contain",
                 position: "absolute",
-                left: 50,
-                top:105,
+                left: 25,
+                top:0,
             }}
             />
 
@@ -46,9 +46,9 @@ const ProductCard = ({
                 justifyContent: "space-between",
                 width: "100%",
             }}>
-
+                {/* Price */}
                 <Text numberOfLines={2} style = {{
-                     color: i%2===0 ? colors.color2 : colors.color3,
+                     color: colors.color3,
                      fontSize: 25,
                      fontWeight: 300,
                      width: "60%"
@@ -56,15 +56,15 @@ const ProductCard = ({
                 </Text>
 
                 <Text numberOfLines={2} style = {{
-                     color: i%2===0 ? colors.color2 : colors.color3,
-                     fontSize: 20,
+                     color: colors.color3,
+                     fontSize: 25,
                      fontWeight: 700,
-                }}>${price}
+                }}>₱{price}
                 </Text>
             </View>
 
             <TouchableOpacity style = {{
-                backgroundColor: i%2===0 ? colors.color2 : colors.color3,
+                backgroundColor: colors.color3,
                 borderRadius: 0,
                 paddingVertical: 10,
                 borderBottomRightRadius: 20,
@@ -72,7 +72,7 @@ const ProductCard = ({
                 width: "100%"
 
             }}>
-                <Button onPress={()=>addToCartHandler(id,name, price, image, stock)} textColor={i%2===0 ? colors.color1: colors.color2}>Add To Cart</Button>
+                <Button onPress={()=>addToCartHandler(id,name, price, image, stock)} textColor={colors.color2}>Add To Cart</Button>
             </TouchableOpacity>
 
 

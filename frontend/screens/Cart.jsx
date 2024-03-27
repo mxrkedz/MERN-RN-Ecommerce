@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import Toast from "react-native-toast-message";
 
-
 const Cart = () => {
   const navigate = useNavigation();
   const dispatch = useDispatch();
@@ -107,7 +106,7 @@ const Cart = () => {
       >
         <Text>{cartItems.length} Items</Text>
         <Text>
-          $
+          ₱
           {cartItems.reduce(
             (prev, curr) => prev + curr.quantity * curr.price,
             0
@@ -115,24 +114,37 @@ const Cart = () => {
         </Text>
       </View>
 
-      <TouchableOpacity
-        onPress={
-          cartItems.length > 0 ? () => navigate.navigate("confirmorder") : null
-        }
-      >
-        <Button
-          style={{
-            backgroundColor: colors.color3,
-            borderRaduis: 100,
-            padding: 5,
-            margin: 30,
-          }}
-          icon={"cart"}
-          textColor={colors.color2}
-        >
-          Checkout
-        </Button>
-      </TouchableOpacity>
+      {cartItems.length > 0 ? (
+        <TouchableOpacity onPress={() => navigate.navigate("confirmorder")}>
+          <Button
+            style={{
+              backgroundColor: colors.color3,
+              borderRadius: 100,
+              padding: 5,
+              margin: 30,
+            }}
+            icon="cart"
+            textColor={colors.color2}
+          >
+            Checkout
+          </Button>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity onPress={() => navigate.navigate("home")}>
+          <Button
+            style={{
+              backgroundColor: colors.color3,
+              borderRadius: 100,
+              padding: 5,
+              margin: 30,
+            }}
+            icon="home"
+            textColor={colors.color2}
+          >
+            Continue Shopping
+          </Button>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

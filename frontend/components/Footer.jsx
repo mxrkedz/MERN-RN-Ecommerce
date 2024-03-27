@@ -40,8 +40,8 @@ const Footer = ({ activeRoute = "home" }) => {
     <View
       style={{
         backgroundColor: colors.color1,
-        borderTopRightRadius: 120,
-        borderTopLeftRadius: 120,
+        borderTopRightRadius: 50,
+        borderTopLeftRadius: 50,
         position: "absolute",
         width: "100%",
         bottom: 0,

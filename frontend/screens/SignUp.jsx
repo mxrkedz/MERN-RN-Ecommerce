@@ -28,7 +28,7 @@ const SignUp = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const disableBtn =
-    !name || !email || !password || !address || !city || !country || !pinCode;
+    !name || !email || !password || !address || !city || !country || !pinCode || !avatar;
 
   const submitHandler = () => {
     const myForm = new FormData();
