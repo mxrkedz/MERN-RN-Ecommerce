@@ -67,7 +67,6 @@ export const createProduct = asyncError (async (req, res, next) => {
     });
 });
 
-
 export const updateProduct = asyncError (async (req, res, next) => {
     const {name, description, category, price, stock} = req.body;
 
