@@ -194,3 +194,44 @@ const sendTransactionCompleteEmail = async (userEmail, orderId) => {
     console.error(`Error sending order confirmation email: ${error.message}`);
   }
 };
+
+export const dailySales = asyncError(async (req, res, next) => {
+  try {
+    const salesPerDay = await Order.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          totalSales: { $sum: "$totalAmount" },
+        },
+      },
+      { $sort: { _id: 1 } }, // Sort by date in ascending order
+    ]);
+
+    res.status(200).json({
+      success: true,
+      salesPerDay,
+    });
+  } catch (error) {
+    next(new ErrorHandler("Failed to fetch daily sales", 500));
+  }
+});
+
+export const geographicSales = asyncError(async (req, res, next) => {
+  try {
+    const salesByCity = await Order.aggregate([
+      {
+        $group: {
+          _id: "$shippingInfo.city",
+          totalSales: { $sum: "$totalAmount" },
+        },
+      },
+    ]);
+
+    res.status(200).json({
+      success: true,
+      salesByCity,
+    });
+  } catch (error) {
+    next(new ErrorHandler("Failed to fetch geographic sales", 500));
+  }
+});

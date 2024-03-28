@@ -1,6 +1,12 @@
 import express from "express";
 import {
-  createOrder, getAdminOrders, getMyOrders, getOrderDetails, proccessOrder
+  createOrder,
+  getAdminOrders,
+  getMyOrders,
+  getOrderDetails,
+  proccessOrder,
+  geographicSales,
+  dailySales,
 } from "../controllers/order.js";
 import { isAdmin, isAuthenticated } from "../middlewares/auth.js";
 
@@ -16,5 +22,9 @@ router
   .route("/single/:id")
   .get(isAuthenticated, getOrderDetails)
   .put(isAuthenticated, isAdmin, proccessOrder);
+
+//charts
+router.get("/dailySales", isAuthenticated, isAdmin, dailySales);
+router.get("/geographicSales", geographicSales);
 
 export default router;

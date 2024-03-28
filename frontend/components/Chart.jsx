@@ -10,7 +10,7 @@ const Chart = ({ inStock = 0, outOfStock = 0 }) => {
     {
       name: "Out of Stock",
       population: outOfStock,
-      color: colors.color1_light,
+      color: "crimson",
       legendFontColor: colors.color2,
     },
     {
@@ -33,7 +33,7 @@ const Chart = ({ inStock = 0, outOfStock = 0 }) => {
         height={150}
         chartConfig={chartConfig}
         accessor={"population"}
-        backgroundColor={colors.color3}
+        backgroundColor="transparent"
         absolute
       />
     </View>
