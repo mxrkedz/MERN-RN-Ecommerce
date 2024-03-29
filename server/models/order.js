@@ -81,6 +81,11 @@ const schema = new mongoose.Schema({
     required: true,
   },
 
+  reviewed: {
+    type: Boolean,
+    default: false,
+  },
+
   orderStatus: {
     type: String,
     enum: ["Preparing", "Shipped", "Delivered"],

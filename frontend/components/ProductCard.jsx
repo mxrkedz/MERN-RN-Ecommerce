@@ -63,17 +63,35 @@ const ProductCard = ({
                 </Text>
             </View>
 
-            <TouchableOpacity style = {{
-                backgroundColor: colors.color3,
-                borderRadius: 0,
-                paddingVertical: 10,
-                borderBottomRightRadius: 20,
-                borderBottomLeftRadius: 20,
-                width: "100%"
-
-            }}>
-                <Button onPress={()=>addToCartHandler(id,name, price, image, stock)} textColor={colors.color2}>Add To Cart</Button>
-            </TouchableOpacity>
+            {stock > 0 ? (
+                <TouchableOpacity 
+                    style = {{
+                        backgroundColor: colors.color3,
+                        borderRadius: 0,
+                        paddingVertical: 10,
+                        borderBottomRightRadius: 20,
+                        borderBottomLeftRadius: 20,
+                        width: "100%"
+                    }}
+                    onPress={()=>addToCartHandler(id, name, price, image, stock)}
+                >
+                    <Button textColor={colors.color2}>Add To Cart</Button>
+                </TouchableOpacity>
+            ) : (
+                <View 
+                    style={{
+                        backgroundColor: colors.color3,
+                        borderRadius: 0,
+                        paddingVertical: 10,
+                        borderBottomRightRadius: 20,
+                        borderBottomLeftRadius: 20,
+                        width: "100%",
+                        opacity: 0.5, // Making the button appear disabled
+                    }}
+                >
+                    <Button disabled textColor={colors.color2}>Out Of Stock</Button>
+                </View>
+            )}
 
 
         </View>

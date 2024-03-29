@@ -22,16 +22,16 @@ export const inputStyling = StyleSheet.create({
   height: 50,
   backgroundColor: colors.color2,
   marginVertical: 10,
-  margineHorizontal: 20,
+  marginHorizontal: 20,
 });
 
 export const formHeading = StyleSheet.create({
   fontSize: 25,
   fontWeight: "500",
   textAlign: "center",
-  backgroundColor: colors.color3,
-  color: colors.color2,
-  padding: 5,
+  backgroundColor: colors.color2,
+  color: colors.color3,
+  padding: 1,
   borderRadius: 5,
 });
 

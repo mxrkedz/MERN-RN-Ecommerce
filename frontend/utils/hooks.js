@@ -148,3 +148,35 @@ export const useAdminProducts = (dispatch, isFocused) => {
     loading,
   };
 };
+
+export const useGetSalesData = (setSalesData) => {
+  useEffect(() => {
+    const fetchSalesData = async () => {
+      try {
+        const response = await axios.get(`${server}/order/dailySales`);
+        setSalesData(response.data.salesPerDay);
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+        setSalesData([]); // Set salesData to empty array in case of error
+      }
+    };
+
+    fetchSalesData();
+  }, [setSalesData]);
+};
+
+export const useGetGeographicSalesData = (setGeographicSalesData) => {
+  useEffect(() => {
+    const fetchGeographicSalesData = async () => {
+      try {
+        const response = await axios.get(`${server}/order/geographicSales`);
+        setGeographicSalesData(response.data.salesByCity);
+      } catch (error) {
+        console.error('Error fetching sales data:', error);
+        setGeographicSalesData([]); // Set GeographicSalesData to empty array in case of error
+      }
+    };
+
+    fetchGeographicSalesData();
+  }, [setGeographicSalesData]);
+};

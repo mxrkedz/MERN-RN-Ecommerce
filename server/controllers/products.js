@@ -67,7 +67,6 @@ export const createProduct = asyncError (async (req, res, next) => {
     });
 });
 
-
 export const updateProduct = asyncError (async (req, res, next) => {
     const {name, description, category, price, stock} = req.body;
 
@@ -154,14 +153,38 @@ export const deleteProductImage = asyncError(async (req, res, next) => {
     });
   });
 
-  export const addCategory = asyncError(async (req, res, next) => {
-    await Category.create(req.body);
+  // export const addCategory = asyncError(async (req, res, next) => {
+  //   await Category.create(req.body);
+    
   
-    res.status(201).json({
-      success: true,
-      message: "Category Added Successfully",
+  //   res.status(201).json({
+  //     success: true,
+  //     message: "Category Added Successfully",
+  //   });
+  // });
+
+  export const addCategory = asyncError (async (req, res, next) => {
+    const {category} = req.body;
+
+    if(!req.file) return next(new ErrorHandler("Please add image", 400));
+
+    const file= getDataUri(req.file);  
+         const myCloud = await cloudinary.v2.uploader.upload(file.content);
+         const image = {
+          public_id: myCloud.public_id,
+          url:myCloud.secure_url,
+        };
+
+        await Category.create({
+            category,
+            images: [image],
+        });
+
+    res.status(200).json({
+        success: true,
+        message:"Category Created Succesfully",
     });
-  });
+});
   
   export const getAllCategories = asyncError(async (req, res, next) => {
     const categories = await Category.find({});
@@ -190,6 +213,57 @@ export const deleteProductImage = asyncError(async (req, res, next) => {
       message: "Category Deleted Successfully",
     });
   });
+  
+  export const addCategoryImage = asyncError (async (req, res, next) => {
+
+    const category = await Category.findById(req.params.id);
+    if (!category) return next(new ErrorHandler("Category not found", 404));
+
+    if(!req.file) return next(new ErrorHandler("Please add image", 400));
+
+    const file= getDataUri(req.file);  
+         const myCloud = await cloudinary.v2.uploader.upload(file.content);
+         const image = {
+          public_id: myCloud.public_id,
+          url:myCloud.secure_url,
+        };
+
+        category.images.push(image);
+        await category.save();
+
+    res.status(200).json({
+        success: true,
+        message:"Image Added Succesfully",
+    });
+});
+
+export const deleteCategoryImage = asyncError(async (req, res, next) => {
+  const category = await Category.findById(req.params.id);
+  if (!category) return next(new ErrorHandler("Category not found", 404));
+
+  const id = req.query.id;
+
+  if (!id) return next(new ErrorHandler("Please Image Id", 400));
+
+  let isExist = -1;
+
+  category.images.forEach((item, index) => {
+    if (item._id.toString() === id.toString()) isExist = index;
+  });
+
+  if (isExist < 0) return next(new ErrorHandler("Image doesn't exist", 400));
+
+  await cloudinary.v2.uploader.destroy(category.images[isExist].public_id);
+
+  category.images.splice(isExist, 1);
+
+  await category.save();
+
+  res.status(200).json({
+    success: true,
+    message: "Image Deleted Successfully",
+  });
+});
 
 
 

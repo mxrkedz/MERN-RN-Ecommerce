@@ -45,7 +45,15 @@ const Payment = ({ navigation, route }) => {
         totalAmount,
         paymentInfo
       )
-    );
+    ).then(() => {
+      // Dispatch an action to clear the cart after placing the order
+      dispatch({
+        type: "clearCart",
+      });
+  
+      // Redirect user to home screen
+      navigation.navigate("home");
+    });
   };
 
   const onlineHandler = () => {};
@@ -75,10 +83,6 @@ const Payment = ({ navigation, route }) => {
           <View style={styles.radioStyle}>
             <Text style={styles.radioStyleText}>Cash on Delivery</Text>
             <RadioButton color={colors.color1} value={"COD"} />
-          </View>
-          <View style={styles.radioStyle}>
-            <Text style={styles.radioStyleText}>Online</Text>
-            <RadioButton color={colors.color1} value={"ONLINE"} />
           </View>
         </RadioButton.Group>
       </View>
