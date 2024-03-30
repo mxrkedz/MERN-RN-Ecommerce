@@ -34,7 +34,7 @@ export const updatePassword =
     }
   };
 
-  export const updateProfile =
+export const updateProfile =
   (name, email, address, city, country, pinCode) => async (dispatch) => {
     try {
       dispatch({
@@ -71,32 +71,32 @@ export const updatePassword =
     }
   };
 
-  export const updatePic = (formData) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "updatePicRequest",
-      });
-  
-      const { data } = await axios.put(`${server}/user/updatepicture`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        withCredentials: true,
-      });
-  
-      dispatch({
-        type: "updatePicSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "updatePicFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+export const updatePic = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updatePicRequest",
+    });
 
-  export const placeOrder =
+    const { data } = await axios.put(`${server}/user/updatepicture`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "updatePicSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updatePicFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const placeOrder =
   (
     orderItems,
     shippingInfo,
@@ -144,113 +144,113 @@ export const updatePassword =
     }
   };
 
-  export const processOrder = (id) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "processOrderRequest",
-      });
-  
-      const { data } = await axios.put(
-        `${server}/order/single/${id}`,
-  
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      dispatch({
-        type: "processOrderSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "processOrderFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+export const processOrder = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "processOrderRequest",
+    });
 
-  export const addCategory = (category) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "addCategoryRequest",
-      });
-  
-      const { data } = await axios.post(
-        `${server}/product/category`,
-  
-        {
-          category,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-      dispatch({
-        type: "addCategorySuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "addCategoryFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
-  
-  export const deleteCategory = (id) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "deleteCategoryRequest",
-      });
-  
-      const { data } = await axios.delete(
-        `${server}/product/category/${id}`,
-  
-        {
-          withCredentials: true,
-        }
-      );
-      dispatch({
-        type: "deleteCategorySuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "deleteCategoryFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+    const { data } = await axios.put(
+      `${server}/order/single/${id}`,
 
-  export const createProduct = (formData) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "addProductRequest",
-      });
-  
-      const { data } = await axios.post(`${server}/product/new`, formData, {
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({
+      type: "processOrderSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "processOrderFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const addCategory = (category) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "addCategoryRequest",
+    });
+
+    const { data } = await axios.post(
+      `${server}/product/category`,
+
+      {
+        category,
+      },
+      {
         headers: {
-          "Content-Type": "multipart/form-data",
+          "Content-Type": "application/json",
         },
         withCredentials: true,
-      });
-  
-      dispatch({
-        type: "addProductSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "addProductFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
-  export const updateProduct =
+      }
+    );
+    dispatch({
+      type: "addCategorySuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addCategoryFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteCategory = (id) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteCategoryRequest",
+    });
+
+    const { data } = await axios.delete(
+      `${server}/product/category/${id}`,
+
+      {
+        withCredentials: true,
+      }
+    );
+    dispatch({
+      type: "deleteCategorySuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteCategoryFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const createProduct = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "addProductRequest",
+    });
+
+    const { data } = await axios.post(`${server}/product/new`, formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
+      withCredentials: true,
+    });
+
+    dispatch({
+      type: "addProductSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addProductFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+export const updateProduct =
   (id, name, description, price, stock, category) => async (dispatch) => {
     try {
       dispatch({
@@ -285,142 +285,170 @@ export const updatePassword =
     }
   };
 
-  export const updateProductImage = (productId, formData) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "updateProductImageRequest",
-      });
-  
-      const { data } = await axios.post(
-        `${server}/product/images/${productId}`,
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-          withCredentials: true,
-        }
-      );
-  
-      dispatch({
-        type: "updateProductImageSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "updateProductImageFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+export const updateProductImage = (productId, formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "updateProductImageRequest",
+    });
 
-  export const deleteProductImage = (productId, imageId) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "deleteProductImageRequest",
-      });
-  
-      const { data } = await axios.delete(
-        `${server}/product/images/${productId}?id=${imageId}`,
-        {
-          withCredentials: true,
-        }
-      );
-  
-      dispatch({
-        type: "deleteProductImageSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "deleteProductImageFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
-
-  export const deleteProduct = (productId) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "deleteProductRequest",
-      });
-  
-      const { data } = await axios.delete(
-        `${server}/product/single/${productId}`,
-        {
-          withCredentials: true,
-        }
-      );
-  
-      dispatch({
-        type: "deleteProductSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "deleteProductFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
-
-  export const forgetPassword = (email) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "forgetPasswordRequest",
-      });
-      const { data } = await axios.post(
-        `${server}/user/forgetpassword`,
-        {
-          email,
+    const { data } = await axios.post(
+      `${server}/product/images/${productId}`,
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-  
-      dispatch({
-        type: "forgetPasswordSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "forgetPasswordFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
-  
-  export const resetPassword = (otp, password) => async (dispatch) => {
-    try {
-      dispatch({
-        type: "resetPasswordRequest",
-      });
-      const { data } = await axios.put(
-        `${server}/user/forgetpassword`,
-        {
-          otp,
-          password,
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "updateProductImageSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "updateProductImageFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteProductImage = (productId, imageId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteProductImageRequest",
+    });
+
+    const { data } = await axios.delete(
+      `${server}/product/images/${productId}?id=${imageId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "deleteProductImageSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteProductImageFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const deleteProduct = (productId) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "deleteProductRequest",
+    });
+
+    const { data } = await axios.delete(
+      `${server}/product/single/${productId}`,
+      {
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "deleteProductSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "deleteProductFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const forgetPassword = (email) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "forgetPasswordRequest",
+    });
+    const { data } = await axios.post(
+      `${server}/user/forgetpassword`,
+      {
+        email,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-  
-      dispatch({
-        type: "resetPasswordSuccess",
-        payload: data.message,
-      });
-    } catch (error) {
-      dispatch({
-        type: "resetPasswordFail",
-        payload: error.response.data.message,
-      });
-    }
-  };
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "forgetPasswordSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "forgetPasswordFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const resetPassword = (otp, password) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "resetPasswordRequest",
+    });
+    const { data } = await axios.put(
+      `${server}/user/forgetpassword`,
+      {
+        otp,
+        password,
+      },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+
+    dispatch({
+      type: "resetPasswordSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "resetPasswordFail",
+      payload: error.response.data.message,
+    });
+  }
+};
+
+export const addReview = (formData) => async (dispatch) => {
+  try {
+    dispatch({
+      type: "addReviewRequest",
+    });
+
+    const { data } = await axios.post(`${server}/review/create`, formData, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      withCredentials: true,
+    });
+
+    // Log the data if the request is successful
+    console.log("Data after review addition:", data);
+
+    dispatch({
+      type: "addReviewSuccess",
+      payload: data.message,
+    });
+  } catch (error) {
+    dispatch({
+      type: "addReviewFail",
+      payload: error.response.data.message,
+    });
+  }
+};
