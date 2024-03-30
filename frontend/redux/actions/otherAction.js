@@ -170,25 +170,20 @@ export const updatePassword =
     }
   };
 
-  export const addCategory = (category) => async (dispatch) => {
+  export const addCategory = (formData) => async (dispatch) => {
     try {
       dispatch({
         type: "addCategoryRequest",
       });
   
       const { data } = await axios.post(
-        `${server}/product/category`,
-  
-        {
-          category,
+        `${server}/product/category`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
+        withCredentials: true,
+      });
+
       dispatch({
         type: "addCategorySuccess",
         payload: data.message,
