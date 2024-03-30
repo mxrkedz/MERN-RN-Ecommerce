@@ -170,61 +170,56 @@ export const processOrder = (id) => async (dispatch) => {
   }
 };
 
-export const addCategory = (category) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "addCategoryRequest",
-    });
-
-    const { data } = await axios.post(
-      `${server}/product/category`,
-
-      {
-        category,
-      },
-      {
+  export const addCategory = (formData) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "addCategoryRequest",
+      });
+  
+      const { data } = await axios.post(
+        `${server}/product/category`, formData, {
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "multipart/form-data",
         },
         withCredentials: true,
-      }
-    );
-    dispatch({
-      type: "addCategorySuccess",
-      payload: data.message,
-    });
-  } catch (error) {
-    dispatch({
-      type: "addCategoryFail",
-      payload: error.response.data.message,
-    });
-  }
-};
+      });
 
-export const deleteCategory = (id) => async (dispatch) => {
-  try {
-    dispatch({
-      type: "deleteCategoryRequest",
-    });
-
-    const { data } = await axios.delete(
-      `${server}/product/category/${id}`,
-
-      {
-        withCredentials: true,
-      }
-    );
-    dispatch({
-      type: "deleteCategorySuccess",
-      payload: data.message,
-    });
-  } catch (error) {
-    dispatch({
-      type: "deleteCategoryFail",
-      payload: error.response.data.message,
-    });
-  }
-};
+      dispatch({
+        type: "addCategorySuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "addCategoryFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
+  
+  export const deleteCategory = (id) => async (dispatch) => {
+    try {
+      dispatch({
+        type: "deleteCategoryRequest",
+      });
+  
+      const { data } = await axios.delete(
+        `${server}/product/category/${id}`,
+  
+        {
+          withCredentials: true,
+        }
+      );
+      dispatch({
+        type: "deleteCategorySuccess",
+        payload: data.message,
+      });
+    } catch (error) {
+      dispatch({
+        type: "deleteCategoryFail",
+        payload: error.response.data.message,
+      });
+    }
+  };
 
 export const createProduct = (formData) => async (dispatch) => {
   try {

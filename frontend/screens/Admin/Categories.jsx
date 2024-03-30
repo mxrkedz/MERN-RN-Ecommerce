@@ -5,7 +5,7 @@ import {
     StyleSheet,
     TouchableOpacity,
   } from "react-native";
-  import React, { useState } from "react";
+  import React, { useEffect, useState } from "react";
   import {
     colors,
     defaultStyle,
@@ -18,9 +18,11 @@ import { useIsFocused } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
 import { addCategory, deleteCategory } from "../../redux/actions/otherAction";
 import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
+import mime from "mime";
 
 
-  const Categories = ({ navigation }) => {
+  const Categories = ({ navigation, route }) => {
+    const [image, setImage] = useState("");
     const [category, setCategory] = useState("");
   const [categories, setCategories] = useState([]);
 
@@ -36,8 +38,19 @@ import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
   };
 
   const submitHandler = () => {
-    dispatch(addCategory(category));
+    const myForm = new FormData();
+    myForm.append("category", category);
+    myForm.append("file", {
+      uri: image,
+      type: mime.getType(image),
+      name: image.split("/").pop(),
+    });
+    dispatch(addCategory(myForm));
   };
+
+  useEffect(() => {
+    if (route.params?.image) setImage(route.params.image);
+  }, [route.params]);
   
     return (
       <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
@@ -72,12 +85,50 @@ import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
         </ScrollView>
   
         <View style={styles.container}>
+        
+        <View
+              style={{
+                width: 80,
+                height: 80,
+                alignSelf: "center",
+                marginBottom: 20,
+              }}
+            >
+              <Avatar.Image
+                size={80}
+                style={{
+                  backgroundColor: colors.color1,
+                }}
+                source={{
+                  uri: image ? image : null,
+                }}
+              />
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate("camera", { categories: true })
+                }
+              >
+                <Avatar.Icon
+                  icon={"camera"}
+                  size={30}
+                  color={colors.color3}
+                  style={{
+                    backgroundColor: colors.color2,
+                    position: "absolute",
+                    bottom: 0,
+                    right: -5,
+                  }}
+                />
+              </TouchableOpacity>
+            </View>
+
           <TextInput
             {...inputOptions}
             placeholder="Category"
             value={category}
             onChangeText={setCategory}
           />
+            
   
           <Button
             textColor={colors.color2}
