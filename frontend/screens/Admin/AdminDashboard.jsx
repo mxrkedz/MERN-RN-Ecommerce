@@ -23,13 +23,11 @@ const AdminDashboard = ({navigation}) => {
     isFocused
   );
 
-// Fetch sales data
 const [salesData, setSalesData] = useState([]);
-useGetSalesData(setSalesData); // Fetch sales data when component mounts
+useGetSalesData(setSalesData); 
 
-// Fetch sales data
 const [salesByCity, setGeographicSalesData] = useState([]);
-useGetGeographicSalesData(setGeographicSalesData); // Fetch sales data when component mounts
+useGetGeographicSalesData(setGeographicSalesData); 
 
   const navigationHandler = (text) => {
     switch (text) {

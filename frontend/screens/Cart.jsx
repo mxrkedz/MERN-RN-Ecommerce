@@ -62,8 +62,8 @@ const Cart = () => {
     >
       <Header back={true} emptyCart={true} />
       <Heading
-        text1="Shopping"
-        text2="Cart"
+        text1="My"
+        text2="Basket"
         containerStyle={{ paddingTop: 70, marginLeft: 35 }}
       />
       <View
@@ -107,10 +107,11 @@ const Cart = () => {
         <Text>{cartItems.length} Items</Text>
         <Text>
           ₱
-          {cartItems.reduce(
-            (prev, curr) => prev + curr.quantity * curr.price,
-            0
-          )}
+          {cartItems
+            .reduce((prev, curr) => prev + curr.quantity * curr.price, 0)
+            .toLocaleString("en-PH", {
+              minimumFractionDigits: 2,
+            })}
         </Text>
       </View>
 

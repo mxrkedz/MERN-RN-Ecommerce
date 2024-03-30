@@ -34,7 +34,7 @@ const UpdateProfile = ({ navigation }) => {
   };
   return (
     <View style={defaultStyle}>
-      <Header back={true} />
+      <Header back={true} showCartButton={false}/>
       <View style={{ marginBottom: 20, paddingTop: 70 }}>
         <Text style={formHeading}>Edit Profile</Text>
       </View>

@@ -1,7 +1,7 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
 
 export const colors = {
-  color1: "#248232",
+  color1: "crimson",
   color1_light: "rgba(40, 149, 62,1)",
   color1_light2: "rgba(43, 168, 74,0.8)",
   color2: "#FCFFFC",
@@ -12,9 +12,10 @@ export const colors = {
 };
 
 export const defaultStyle = StyleSheet.create({
-  padding: 35,
+  padding: 30,
   paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   flex: 1,
+  marginVertical: -20,
   backgroundColor: colors.color2,
 });
 

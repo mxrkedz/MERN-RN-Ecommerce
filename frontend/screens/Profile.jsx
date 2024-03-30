@@ -1,27 +1,41 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { defaultStyle, formHeading, colors, defaultImg } from "../styles/styles";
+import {
+  defaultStyle,
+  formHeading,
+  colors,
+  defaultImg,
+} from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "../redux/actions/userAction";
-import { useMessageAndErrorOther, useMessageAndErrorUser } from "../utils/hooks";
+import {
+  useMessageAndErrorOther,
+  useMessageAndErrorUser,
+} from "../utils/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import mime from "mime";
 import { updatePic } from "../redux/actions/otherAction";
 
 const Profile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);
-  const  [avatar, setAvatar]  = useState(user?.avatar ? user.avatar.url : defaultImg);
+  const [avatar, setAvatar] = useState(
+    user?.avatar ? user.avatar.url : defaultImg
+  );
 
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
   const logoutHandler = () => {
-    dispatch(logout())
+    dispatch(logout());
+  };
+
+  const openDrawer = () => {
+    navigation.openDrawer();
   };
 
   const navigateHandler = (text) => {
@@ -76,7 +90,7 @@ const Profile = ({ navigation, route }) => {
   return (
     <>
       <View style={defaultStyle}>
-        <View style={{ marginBottom: 20 }}>
+        <View >
           <Text style={formHeading}>Profile</Text>
         </View>
 
@@ -96,10 +110,13 @@ const Profile = ({ navigation, route }) => {
                   navigation.navigate("camera", { updateProfile: true })
                 }
               >
-                <Button 
-                disabled={loadingPic}
-                loading={loadingPic} 
-                textColor={colors.color1}>Change Photo</Button>
+                <Button
+                  disabled={loadingPic}
+                  loading={loadingPic}
+                  textColor={colors.color1}
+                >
+                  Change Photo
+                </Button>
               </TouchableOpacity>
 
               <Text style={styles.name}>{user?.name}</Text>
@@ -117,26 +134,18 @@ const Profile = ({ navigation, route }) => {
                 style={{
                   flexDirection: "row",
                   margin: 10,
-                  justifyContent: "space-between",
+                  justifyContent: "space-evenly",
                 }}
               >
                 <ButtonBox
                   handler={navigateHandler}
-                  text={"Orders"}
-                  icon={"format-list-bulleted-square"}
+                  text={"Account"}
+                  icon={"account-edit"}
                 />
-                {user?.role === "admin" && (
-                  <ButtonBox
-                    handler={navigateHandler}
-                    icon={"view-dashboard"}
-                    text={"Admin"}
-                    reverse={true}
-                  />
-                )}
                 <ButtonBox
                   handler={navigateHandler}
-                  text={"Profile"}
-                  icon={"pencil"}
+                  text={"Password"}
+                  icon={"lock"}
                 />
               </View>
               <View
@@ -146,16 +155,14 @@ const Profile = ({ navigation, route }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                <ButtonBox
-                  handler={navigateHandler}
-                  text={"Password"}
-                  icon={"pencil"}
-                />
-                <ButtonBox
-                  handler={navigateHandler}
-                  text={"Sign Out"}
-                  icon={"exit-to-app"}
-                />
+                {user?.role === "admin" && (
+                  <ButtonBox
+                    handler={navigateHandler}
+                    icon={"view-dashboard"}
+                    text={"Admin"}
+                    reverse={true}
+                  />
+                )}
               </View>
             </View>
           </>

@@ -68,7 +68,7 @@ const submitHandler = () => {
           backgroundColor: colors.color5,
         }}
       >
-        <Header back={true} />
+        <Header back={true} showCartButton={false}/>
 
         {/* Heading */}
         <View style={{ marginBottom: 20, paddingTop: 70 }}>

@@ -69,7 +69,7 @@ const Payment = ({ navigation, route }) => {
 
   return (
     <View style={defaultStyle}>
-      <Header back={true} />
+      <Header back={true} showCartButton={false} />
       <Heading
         containerStyle={{ paddingTop: 70 }}
         text1="Payment"
@@ -113,7 +113,7 @@ const Payment = ({ navigation, route }) => {
 };
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.color3,
+    backgroundColor: colors.color2,
     padding: 30,
     borderRadius: 10,
     marginVertical: 20,
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     fontSize: 18,
     textTransform: "uppercase",
-    color: colors.color2,
+    color: colors.color3,
   },
   btn: {
     backgroundColor: colors.color3,

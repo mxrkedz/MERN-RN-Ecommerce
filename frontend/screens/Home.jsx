@@ -1,17 +1,30 @@
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
-import React, { useEffect, useState } from "react";
+// Home.js
+
+import React, { useEffect, useState, useRef } from "react";
+import {
+  View,
+  TouchableOpacity,
+  ScrollView,
+  StyleSheet,
+  Text,
+  Image,
+  Dimensions,
+} from "react-native";
+import { Avatar, Button } from "react-native-paper";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import Toast from "react-native-toast-message";
+import Carousel from "react-native-snap-carousel";
+
 import { defaultStyle, colors } from "../styles/styles";
 import Header from "../components/Header";
-import { Avatar, Button } from "react-native-paper";
-import SearchModal from "../components/SearchModal";
-import ProductCard from "../components/ProductCard";
-import { useIsFocused, useNavigation } from "@react-navigation/native";
-import Footer from "../components/Footer";
 import Heading from "../components/Heading";
-import { useDispatch, useSelector } from "react-redux";
+import ProductCard from "../components/ProductCard";
+import Footer from "../components/Footer";
+import SearchModal from "../components/SearchModal";
+
 import { getAllProducts } from "../redux/actions/productAction";
 import { useSetCategories } from "../utils/hooks";
-import Toast from "react-native-toast-message";
 
 const Home = () => {
   const [category, setCategory] = useState("");
@@ -22,6 +35,7 @@ const Home = () => {
   const navigate = useNavigation();
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const isCarousel = useRef(null);
 
   const { products } = useSelector((state) => state.product);
 
@@ -70,105 +84,112 @@ const Home = () => {
     };
   }, [dispatch, searchQuery, category, isFocused]);
 
+  const renderCarouselItem = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => categoryButtonHandler(item._id)}
+      style={{ alignItems: "center", justifyContent: "center" }}
+    >
+      <Image
+        source={{ uri: item.images[0].url }}
+        style={{ width: 300, height: 200, borderRadius: 10 }}
+      />
+      <Text style={{ marginTop: 10, fontWeight: 900 }}>{item.category}</Text>
+    </TouchableOpacity>
+  );
+
   return (
-    <>
-      {activeSearch && (
-        <SearchModal
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          setActiveSearch={setActiveSearch}
-          products={products}
-        />
-      )}
-      <View style={defaultStyle}>
-        <Header />
+    <View style={styles.container}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {activeSearch && (
+          <SearchModal
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+            setActiveSearch={setActiveSearch}
+            products={products}
+          />
+        )}
+        <View style={defaultStyle}>
+          <Header showCartButton={false} showSearchButton={true} onSearchButtonPress={() => setActiveSearch((prev) => !prev)}/>
 
-        {/* Heading Row */}
-
-        <View
-          style={{
-            paddingTop: 70,
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          {/* Heading */}
-          <Heading text1="Our" text2="Products" />
-
-          {/* SearchBar */}
-          <View>
-            <TouchableOpacity onPress={() => setActiveSearch((prev) => !prev)}>
-              <Avatar.Icon
-                icon={"magnify"}
-                size={50}
-                color="gray"
-                style={{ backgroundColor: colors.color2, elevation: 12 }}
-              />
-            </TouchableOpacity>
+          {/* Heading Row */}
+          <View style={styles.headingContainer}>
+            <Heading text1="Find Your" text2="Needs" />
           </View>
-        </View>
 
-        {/* Categories */}
-        <View
-          style={{
-            flexDirection: "row",
-            height: 80,
-          }}
-        >
-          <ScrollView
-            horizontal
-            contentContainerStyle={{
-              alignItems: "center",
-            }}
-            showsHorizontalScrollIndicator={false}
-          >
-            {categories.map((item, index) => (
-              <Button
-                key={item._id}
-                style={{
-                  backgroundColor:
-                    category === item._id ? colors.color1 : colors.color5,
-                  borderRadius: 100,
-                  margin: 5,
-                }}
-                onPress={() => categoryButtonHandler(item._id)}
-              >
-                <Text
-                  style={{
-                    fontSize: 12,
-                    color: category === item._id ? colors.color2 : "gray",
-                  }}
-                >
-                  {item.category}
-                </Text>
-              </Button>
-            ))}
-          </ScrollView>
-        </View>
-        {/* products */}
+          {/* Carousel */}
+          <View style={styles.carouselContainer}>
+            <Carousel
+              data={categories}
+              renderItem={renderCarouselItem}
+              sliderWidth={Dimensions.get("window").width}
+              itemWidth={300}
+              ref={isCarousel}
+              layout="default"
+              loop
+            />
+          </View>
 
-        <View style={{ flex: 1 }}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            {products.map((item, index) => (
-              <ProductCard
-                stock={item.stock}
-                name={item.name}
-                price={item.price}
-                image={item.images[0]?.url}
-                addToCartHandler={addToCartHandler}
-                id={item._id}
-                key={item._id}
-                i={index}
-                navigate={navigate}
-              />
-            ))}
-          </ScrollView>
+          {/* Subheading Row */}
+          <View style={styles.subheadingContainer}>
+            <Heading text1="Our" text2="Collection" />
+          </View>
+
+          {/* Products */}
+          <View style={styles.productContainer}>
+          {products.length > 0 ? (
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              {products.map((item, index) => (
+                <ProductCard
+                  stock={item.stock}
+                  name={item.name}
+                  price={item.price}
+                  image={item.images[0]?.url}
+                  addToCartHandler={addToCartHandler}
+                  id={item._id}
+                  key={item._id}
+                  i={index}
+                  navigate={navigate}
+                />
+              ))}
+            </ScrollView>
+          ) : (
+            <Text>No available products yet for the category</Text>
+          )}
         </View>
-      </View>
+        </View>
+      </ScrollView>
       <Footer activeRoute={"home"} />
-    </>
+    </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    position: "relative",
+  },
+  headingContainer: {
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: "left",
+  },
+  carouselContainer: {
+    alignItems: "center", // Center the carousel horizontally
+    marginBottom: 20, // Add margin bottom to give space between carousel and other content
+  },
+  subheadingContainer: {
+    paddingTop: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  categoryContainer: {
+    flexDirection: "row",
+    height: 80,
+  },
+  productContainer: {
+    flex: 1,
+  },
+});
 
 export default Home;

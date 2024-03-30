@@ -15,7 +15,7 @@ const Orders = () => {
 
   return (
     <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
-      <Header back={true} />
+      <Header back={true} showCartButton={false}/>
       <View style={{ marginBottom: 20, paddingTop: 70 }}>
         <Text style={formHeading}>Orders</Text>
       </View>

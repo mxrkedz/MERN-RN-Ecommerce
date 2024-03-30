@@ -21,7 +21,7 @@ const ConfirmOrder = () => {
   const [totalAmount] = useState(itemsPrice + shippingCharges + tax);
   return (
     <View style={defaultStyle}>
-      <Header back={true} />
+      <Header back={true} showCartButton={false}/>
       {/* Heading */}
       <Heading
         containerStyle={{
@@ -91,7 +91,7 @@ const PriceTag = ({ heading, value }) => (
     }}
   >
     <Text style={{ fontWeight: "800" }}>{heading}</Text>
-    <Text>₱{value}</Text>
+    <Text>₱{value.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</Text>
   </View>
 );
 

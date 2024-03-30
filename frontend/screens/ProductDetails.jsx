@@ -118,16 +118,18 @@ const ProductDetails = ({ route: { params } }) => {
 
   return (
     <ScrollView
-      style={{ ...defaultStyle, padding: 0, backgroundColor: colors.color1 }}
+      style={{ ...defaultStyle, padding: 0, backgroundColor: colors.color2 }}
     >
       <Header back={true} />
       <Carousel
-        layout="stack"
+        layout="default"
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
         ref={isCarousel}
         data={images}
         renderItem={CarouselCardItem}
+        style={{ marginTop: 10 }}
+        loop
       />
       <View
         style={{
@@ -274,9 +276,9 @@ const CarouselCardItem = ({ item, index }) => (
 );
 const style = StyleSheet.create({
   container: {
-    backgroundColor: colors.color1,
+    backgroundColor: colors.color2,
     width: ITEM_WIDTH,
-    paddingVertical: 40,
+    paddingVertical: 100,
     height: 380,
   },
   image: {

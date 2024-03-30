@@ -32,85 +32,62 @@ const Footer = ({ activeRoute = "home" }) => {
     color: colors.color2,
     size: 50,
     style: {
-      backgroundColor: colors.color1,
+      backgroundColor: colors.color4,
     },
   };
   return (
     loading === false && (
-    <View
-      style={{
-        backgroundColor: colors.color1,
-        borderTopRightRadius: 50,
-        borderTopLeftRadius: 50,
-        position: "absolute",
-        width: "100%",
-        bottom: 0,
-      }}
-    >
       <View
         style={{
-          flexDirection: "row",
-          justifyContent: "space-evenly",
-        }}
-      >
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigationHandler(1)}
-        >
-          <Avatar.Icon
-            {...avatarOptions}
-            icon={activeRoute === "cart" ? "shopping" : "shopping-outline"}
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.8}
-          onPress={() => navigationHandler(2)}
-        >
-          <Avatar.Icon
-            {...avatarOptions}
-            icon={
-              isAuthenticated === false
-                ? "login"
-                : activeRoute === "profile"
-                ? "account"
-                : "account-outline"
-            }
-          />
-        </TouchableOpacity>
-      </View>
-      <View
-        style={{
+          backgroundColor: colors.color3,
+          borderTopRightRadius: 5,
+          borderTopLeftRadius: 5,
           position: "absolute",
-          width: 80,
-          height: 80,
-          backgroundColor: colors.color2,
-          borderRadius: 100,
-          justifyContent: "center",
-          alignItems: "center",
-          top: -50,
-          alignSelf: "center",
+          width: "100%",
+          bottom: 0,
         }}
       >
         <View
           style={{
-            borderRadius: 100,
-            justifyContent: "center",
-            alignItems: "center",
+            flexDirection: "row",
+            justifyContent: "space-evenly",
           }}
         >
           <TouchableOpacity
             activeOpacity={0.8}
-            onPress={() => navigationHandler(0)}
+            onPress={() => navigationHandler(1)}
           >
             <Avatar.Icon
               {...avatarOptions}
-              icon={activeRoute === "home" ? "home" : "home-outline"}
+              icon={activeRoute === "cart" ? "shopping" : "shopping-outline"}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+              activeOpacity={0.8}
+              onPress={() => navigationHandler(0)}
+            >
+              <Avatar.Icon
+                {...avatarOptions}
+                icon={activeRoute === "home" ? "home" : "home-outline"}
+              />
+            </TouchableOpacity>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigationHandler(2)}
+          >
+            <Avatar.Icon
+              {...avatarOptions}
+              icon={
+                isAuthenticated === false
+                  ? "login"
+                  : activeRoute === "profile"
+                  ? "account"
+                  : "account-outline"
+              }
             />
           </TouchableOpacity>
         </View>
       </View>
-    </View>
     )
   );
 };

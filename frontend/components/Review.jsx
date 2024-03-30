@@ -61,30 +61,32 @@ const Review = () => {
 
   return (
     <View style={styles.container}>
-  <View style={styles.formContainer}>
-    <TextInput
-      style={styles.input}
-      placeholder="Add a review..."
-      value={comment}
-      onChangeText={setNewReviewText}
-    />
-    <View style={{ flexDirection: "row", alignItems: "center"}}>
-      <Rating
-        startingValue={rating}
-        onFinishRating={(value) => setRating(value)}
-        imageSize={20}
-        style={{ paddingVertical: 5 }}
-      />
-      
+      <View style={styles.formContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Add a review..."
+          value={comment}
+          onChangeText={setNewReviewText}
+        />
+        <View style={{ flexDirection: "row", alignItems: "center" }}>
+          <Rating
+            startingValue={rating}
+            onFinishRating={(value) => setRating(value)}
+            imageSize={20}
+            style={{ paddingVertical: 5 }}
+          />
+        </View>
+        <View
+          style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}
+        >
+          <Button
+            title={"Post Review"}
+            onPress={handleAddReview}
+            disabled={isLoading}
+          />
+        </View>
+      </View>
     </View>
-    <Button
-        title={"Post Review"}
-        onPress={handleAddReview}
-        disabled={isLoading}
-      />
-  </View>
-</View>
-
   );
 };
 

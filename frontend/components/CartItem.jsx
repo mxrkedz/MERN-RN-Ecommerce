@@ -16,6 +16,12 @@ const CartItem = ({
   incrementHandler,
   navigate
 }) => {
+
+  const formattedAmount = amount.toLocaleString('en-PH', {
+    style: 'currency',
+    currency: 'PHP',
+    minimumFractionDigits: 2,
+  });
   return (
     <View
       style={{
@@ -57,7 +63,7 @@ const CartItem = ({
             fontWeight: "900",
           }}
         >
-          {amount}
+          {formattedAmount}
         </Text>
       </View>
       <View style={style.qtyContainer}>
