@@ -33,7 +33,7 @@ const Header = ({ back, emptyCart = false, showCartButton = true, showSearchButt
           style={{
             position: "absolute",
             left: 20,
-            top: 40,
+            top: 20,
             zIndex: 10,
           }}
           onPress={() => navigate.goBack()}
@@ -55,7 +55,7 @@ const Header = ({ back, emptyCart = false, showCartButton = true, showSearchButt
           style={{
             position: "absolute",
             right: 20,
-            top: 40,
+            top: 20,
             zIndex: 10,
           }}
           onPress={handleCartPress}
@@ -77,7 +77,7 @@ const Header = ({ back, emptyCart = false, showCartButton = true, showSearchButt
           style={{
             position: "absolute",
             right: 20,
-            top: 40,
+            top: 20,
             zIndex: 10,
           }}
           onPress={onSearchButtonPress} // Implement your search logic here

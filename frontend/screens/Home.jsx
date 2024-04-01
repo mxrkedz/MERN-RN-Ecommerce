@@ -9,6 +9,9 @@ import {
   Text,
   Image,
   Dimensions,
+  SafeAreaView,
+  Platform,
+  FlatList,
 } from "react-native";
 import { Avatar, Button } from "react-native-paper";
 import { useIsFocused, useNavigation } from "@react-navigation/native";
@@ -38,12 +41,17 @@ const Home = () => {
   const isCarousel = useRef(null);
 
   const { products } = useSelector((state) => state.product);
+  const { user } = useSelector((state) => state.user);
 
   const categoryButtonHandler = (id) => {
     setCategory(id);
   };
 
   const addToCartHandler = (id, name, price, image, stock) => {
+    if (!user) {
+      navigate.navigate("login");
+      return;
+    }
     if (stock === 0)
       return Toast.show({
         type: "error",
@@ -98,72 +106,92 @@ const Home = () => {
   );
 
   return (
-    <View style={styles.container}>
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {activeSearch && (
-          <SearchModal
-            searchQuery={searchQuery}
-            setSearchQuery={setSearchQuery}
-            setActiveSearch={setActiveSearch}
-            products={products}
-          />
-        )}
-        <View style={defaultStyle}>
-          <Header showCartButton={false} showSearchButton={true} onSearchButtonPress={() => setActiveSearch((prev) => !prev)}/>
-
-          {/* Heading Row */}
-          <View style={styles.headingContainer}>
-            <Heading text1="Find Your" text2="Needs" />
-          </View>
-
-          {/* Carousel */}
-          <View style={styles.carouselContainer}>
-            <Carousel
-              data={categories}
-              renderItem={renderCarouselItem}
-              sliderWidth={Dimensions.get("window").width}
-              itemWidth={300}
-              ref={isCarousel}
-              layout="default"
-              loop
+    <SafeAreaView
+      style={{
+        alignSelf: "stretch",
+        paddingTop: Platform.OS === "android" ? -10 : 0,
+        flex: 1,
+      }}
+    >
+      <View style={styles.container}>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {activeSearch && (
+            <SearchModal
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              setActiveSearch={setActiveSearch}
+              products={products}
             />
-          </View>
-
-          {/* Subheading Row */}
-          <View style={styles.subheadingContainer}>
-            <Heading text1="Our" text2="Collection" />
-          </View>
-
-          {/* Products */}
-          <View style={styles.productContainer}>
-          {products.length > 0 ? (
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              {products.map((item, index) => (
-                <ProductCard
-                  stock={item.stock}
-                  name={item.name}
-                  price={item.price}
-                  image={item.images[0]?.url}
-                  addToCartHandler={addToCartHandler}
-                  id={item._id}
-                  key={item._id}
-                  i={index}
-                  navigate={navigate}
-                />
-              ))}
-            </ScrollView>
-          ) : (
-            <Text>No available products yet for the category</Text>
           )}
-        </View>
-        </View>
-      </ScrollView>
-      <Footer activeRoute={"home"} />
-    </View>
+          <View style={defaultStyle}>
+            <Header
+              showCartButton={false}
+              showSearchButton={true}
+              onSearchButtonPress={() => setActiveSearch((prev) => !prev)}
+            />
+
+            {/* Heading Row */}
+            <View style={styles.headingContainer}>
+              <Heading text1="Find Your" text2="Needs" />
+            </View>
+
+            {/* Carousel */}
+            <View style={styles.carouselContainer}>
+              <Carousel
+                data={categories}
+                renderItem={renderCarouselItem}
+                sliderWidth={Dimensions.get("window").width}
+                itemWidth={300}
+                ref={isCarousel}
+                layout="default"
+                loop
+              />
+            </View>
+
+            {/* Subheading Row */}
+            <View style={styles.subheadingContainer}>
+              <Heading text1="Our" text2="Collection" />
+            </View>
+
+            {/* Products */}
+            <View style={styles.productContainer}>
+              {products.length > 0 ? (
+                <FlatList
+                  data={products}
+                  renderItem={({ item }) => (
+                    <ProductCard
+                      stock={item.stock}
+                      name={item.name}
+                      price={item.price}
+                      image={item.images[0]?.url}
+                      addToCartHandler={addToCartHandler}
+                      id={item._id}
+                      key={item._id}
+                      navigate={navigate}
+                    />
+                  )}
+                  keyExtractor={(item) => item._id}
+                  numColumns={2} // Display two products per row
+                  contentContainerStyle={styles.scrollViewContent}
+                />
+              ) : (
+                <Text>No available products yet for the category</Text>
+              )}
+            </View>
+          </View>
+        </ScrollView>
+        <Footer activeRoute={"home"} />
+      </View>
+    </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  scrollViewContent: {
+    justifyContent: 'space-between',
+    paddingHorizontal: 10,
+  },
+
   container: {
     flex: 1,
     position: "relative",
@@ -189,6 +217,7 @@ const styles = StyleSheet.create({
   },
   productContainer: {
     flex: 1,
+    marginLeft:-10
   },
 });
 

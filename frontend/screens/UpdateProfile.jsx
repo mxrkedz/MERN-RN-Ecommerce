@@ -33,7 +33,7 @@ const UpdateProfile = ({ navigation }) => {
     dispatch(updateProfile(name, email, address, city, country, pinCode));
   };
   return (
-    <View style={defaultStyle}>
+    <View style={{flex: 1, backgroundColor: colors.color2,}}>
       <Header back={true} showCartButton={false}/>
       <View style={{ marginBottom: 20, paddingTop: 70 }}>
         <Text style={formHeading}>Edit Profile</Text>
@@ -42,9 +42,8 @@ const UpdateProfile = ({ navigation }) => {
         showsVerticalScrollIndicator={false}
         style={{
           padding: 20,
-          elevation: 10,
           borderRadius: 10,
-          backgroundColor: colors.color3,
+          backgroundColor: colors.color2,
         }}
       >
         <View>

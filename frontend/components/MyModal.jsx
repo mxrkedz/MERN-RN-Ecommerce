@@ -18,7 +18,7 @@ const MyModal = ({ id, deleteHandler, navigate, setOpenModal }) => {
           icon={"close"}
           size={25}
           style={{
-            backgroundColor: colors.color1,
+            backgroundColor: colors.color2,
           }}
         />
       </TouchableOpacity>
@@ -30,7 +30,7 @@ const MyModal = ({ id, deleteHandler, navigate, setOpenModal }) => {
         Edit
       </Text>
 
-      <Button textColor={colors.color3} onPress={() => deleteHandler(id)}>
+      <Button textColor={"red"} onPress={() => deleteHandler(id)}>
         Delete
       </Button>
     </View>
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
   text: {
     fontWeight: "900",
     textAlign: "center",
-    textTransform: "uppercase",
   },
 });
 

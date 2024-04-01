@@ -9,8 +9,7 @@ const CameraComponent = ({ navigation, route }) => {
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
   const [camera, setCamera] = useState(null);
-  
-  
+
   const openImagePicker = async () => {
     const permissionResult =
       await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -36,7 +35,7 @@ const CameraComponent = ({ navigation, route }) => {
     if (route.params?.categories)
       return navigation.navigate("categories", {
         image: data.assets[0].uri,
-      });      
+      });
     else
       return navigation.navigate("signup", {
         image: data.assets[0].uri,
@@ -107,11 +106,14 @@ const CameraComponent = ({ navigation, route }) => {
           bottom: 10,
           width: "100%",
           justifyContent: "space-evenly",
+          backgroundColor: colors.color3,
           position: "absolute",
+          padding: 20,
+          marginBottom: -10,
         }}
       >
         <MyIcon icon="image" handler={openImagePicker} />
-        <MyIcon icon="camera" handler={clickPicture} />
+        <MyIcon2 icon="camera" handler={clickPicture} />
         <MyIcon
           icon="camera-flip"
           handler={() => {
@@ -129,10 +131,23 @@ const MyIcon = ({ icon, handler }) => (
   <TouchableOpacity onPress={handler}>
     <Avatar.Icon
       icon={icon}
-      size={40}
+      size={50}
       color={colors.color2}
       style={{
-        backgroundColor: colors.color1,
+        backgroundColor: colors.color4,
+      }}
+    />
+  </TouchableOpacity>
+);
+
+const MyIcon2 = ({ icon, handler }) => (
+  <TouchableOpacity onPress={handler}>
+    <Avatar.Icon
+      icon={icon}
+      size={80}
+      color={colors.color2}
+      style={{
+        backgroundColor: "gray",
       }}
     />
   </TouchableOpacity>

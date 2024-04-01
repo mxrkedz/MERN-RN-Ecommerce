@@ -28,11 +28,11 @@ const AdminOrders = ({ navigation }) => {
   return (
     <View
       style={{
-        ...defaultStyle,
-        backgroundColor: colors.color5,
+        flex: 1,
+        backgroundColor: colors.color2,
       }}
     >
-      <Header back={true} showCartButton={false}/>
+      <Header back={true} showCartButton={false} />
 
       {/* Heading */}
       <View style={{ marginBottom: 20, paddingTop: 70 }}>

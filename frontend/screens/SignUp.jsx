@@ -4,6 +4,7 @@ import {
   colors,
   defaultStyle,
   formHeading,
+  formHeading2,
   inputOptions,
   formStyles as styles,
   defaultImg,
@@ -28,7 +29,14 @@ const SignUp = ({ navigation, route }) => {
   const dispatch = useDispatch();
 
   const disableBtn =
-    !name || !email || !password || !address || !city || !country || !pinCode || !avatar;
+    !name ||
+    !email ||
+    !password ||
+    !address ||
+    !city ||
+    !country ||
+    !pinCode ||
+    !avatar;
 
   const submitHandler = () => {
     const myForm = new FormData();
@@ -63,15 +71,23 @@ const SignUp = ({ navigation, route }) => {
         {/* Heading */}
         <View style={{ marginBottom: 20 }}>
           <Text style={formHeading}>Sign Up</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("login")}
+          >
+            <Text style={formHeading2}>
+              I already have an account |{" "}
+              <Text style={{ fontWeight: "bold" }}>Log In</Text>
+            </Text>
+          </TouchableOpacity>
         </View>
 
         <ScrollView
           showsVerticalScrollIndicator={false}
           style={{
             padding: 20,
-            elevation: 10,
             borderRadius: 10,
-            backgroundColor: colors.color3,
+            backgroundColor: colors.color4,
           }}
         >
           <View style={{ minHeight: 900 }}>
@@ -147,15 +163,6 @@ const SignUp = ({ navigation, route }) => {
             >
               Sign Up
             </Button>
-
-            <Text style={styles.or}>OR</Text>
-
-            <TouchableOpacity
-              activeOpacity={0.8}
-              onPress={() => navigation.navigate("login")}
-            >
-              <Text style={styles.link}>Log In</Text>
-            </TouchableOpacity>
           </View>
         </ScrollView>
       </View>

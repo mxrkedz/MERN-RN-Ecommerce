@@ -63,7 +63,7 @@ const Cart = () => {
       <Header back={true} emptyCart={true} />
       <Heading
         text1="My"
-        text2="Basket"
+        text2="Cart"
         containerStyle={{ paddingTop: 70, marginLeft: 35 }}
       />
       <View

@@ -9,7 +9,7 @@ import { getAdminProducts } from "../redux/actions/productAction";
 export const useMessageAndErrorUser = (
   navigation,
   dispatch,
-  navigateTo = "login"
+  navigateTo = "home"
 ) => {
   const { loading, message, error } = useSelector((state) => state.user);
 

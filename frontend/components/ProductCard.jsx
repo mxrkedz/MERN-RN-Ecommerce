@@ -20,14 +20,14 @@ const ProductCard = ({
     >
       <View
         style={{
-          elevation: 15,
-          width: 250,
+          elevation: 5,
+          width: 150,
           alignItems: "center",
           justifyContent: "space-between",
-          margin: 20,
+          margin: 5,
           marginBottom: 50,
-          borderRadius: 20,
-          height: 400,
+          borderRadius: 10,
+          height:250,
           backgroundColor: colors.color2,
         }}
       >
@@ -36,7 +36,7 @@ const ProductCard = ({
             uri: image,
           }}
           style={{
-            width: 200,
+            width: 100,
             height: "100%",
             resizeMode: "contain",
             position: "absolute",
@@ -58,8 +58,8 @@ const ProductCard = ({
             numberOfLines={2}
             style={{
               color: colors.color3,
-              fontSize: 25,
-              fontWeight: 300,
+              fontSize: 15,
+              fontWeight: 600,
               width: "60%",
             }}
           >
@@ -70,8 +70,8 @@ const ProductCard = ({
             numberOfLines={2}
             style={{
               color: colors.color3,
-              fontSize: 25,
-              fontWeight: 700,
+              fontSize: 15,
+              fontWeight: 800,
             }}
           >
             ₱{price}
@@ -84,8 +84,8 @@ const ProductCard = ({
               backgroundColor: colors.color3,
               borderRadius: 0,
               paddingVertical: 10,
-              borderBottomRightRadius: 20,
-              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 10,
+              borderBottomLeftRadius: 10,
               width: "100%",
             }}
             onPress={() => addToCartHandler(id, name, price, image, stock)}
@@ -98,10 +98,10 @@ const ProductCard = ({
               backgroundColor: colors.color3,
               borderRadius: 0,
               paddingVertical: 10,
-              borderBottomRightRadius: 20,
-              borderBottomLeftRadius: 20,
+              borderBottomRightRadius: 10,
+              borderBottomLeftRadius: 10,
               width: "100%",
-              opacity: 0.5, // Making the button appear disabled
+              opacity: 0.5, 
             }}
           >
             <Button disabled textColor={colors.color2}>

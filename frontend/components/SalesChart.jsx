@@ -47,7 +47,7 @@ const SalesChart = ({ salesData }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.chartTitle}>Geographic Sales</Text>
+      <Text style={styles.chartTitle}>Sales Per Day</Text>
 
       <LineChart
         data={chartData}

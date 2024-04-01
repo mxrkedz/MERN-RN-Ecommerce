@@ -47,17 +47,17 @@ const ProductImages = ({ navigation, route }) => {
     <View
       style={{
         ...defaultStyle,
-        backgroundColor: colors.color5,
+        backgroundColor: colors.color2,
       }}
     >
       <Header back={true} showCartButton={false}/>
 
       {/* Heading */}
       <View style={{ marginBottom: 20, paddingTop: 70 }}>
-        <Text style={formHeading}>Images</Text>
+        <Text style={formHeading}>Manage Images</Text>
       </View>
 
-      <ScrollView
+      <ScrollView showsVerticalScrollIndicator={false}
         style={{
           marginBottom: 20,
         }}
@@ -89,7 +89,8 @@ const ProductImages = ({ navigation, route }) => {
       >
         <Image
           style={{
-            backgroundColor: colors.color2,
+            backgroundColor: "gray",
+            borderRadius: 100,
             width: 100,
             height: 100,
             alignSelf: "center",

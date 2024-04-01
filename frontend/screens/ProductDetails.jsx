@@ -15,11 +15,11 @@ import { defaultStyle, colors } from "../styles/styles";
 import Header from "../components/Header";
 import Review from "../components/Review";
 import Carousel from "react-native-snap-carousel";
-import { Avatar, Button } from "react-native-paper";
+import { ActivityIndicator, Avatar, Button } from "react-native-paper";
 import { AirbnbRating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
-import { useIsFocused } from "@react-navigation/native";
+import { useIsFocused, useNavigation } from "@react-navigation/native";
 import { getProductDetails } from "../redux/actions/productAction";
 import {
   deleteReview,
@@ -50,6 +50,7 @@ const ProductDetails = ({ route: { params } }) => {
   const isOutOfStock = stock === 0;
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
+  const navigate = useNavigation();
 
   const { user } = useSelector((state) => state.user);
 
@@ -72,6 +73,10 @@ const ProductDetails = ({ route: { params } }) => {
   };
 
   const addToCartHandler = () => {
+    if (!user) {
+      navigate.navigate("login");
+      return;
+    }
     if (stock === 0)
       return Toast.show({
         type: "error",
@@ -157,10 +162,14 @@ const ProductDetails = ({ route: { params } }) => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
-            paddingHorizontal: 5,
+            paddingHorizontal: 20,
+            backgroundColor: "lightgray",
+            borderRadius: 5,
+            paddingVertical: 20,
+            marginBottom: -35,
           }}
         >
-          <Text style={{ color: colors.color3, fontWeight: "100" }}>
+          <Text style={{ color: colors.color3, fontWeight: "500" }}>
             Quantity
           </Text>
           <View
@@ -215,9 +224,12 @@ const ProductDetails = ({ route: { params } }) => {
             </Button>
           </TouchableOpacity>
         </View>
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Leave a Review</Text>
         <Review />
 
         {/* Rating */}
+        <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reviews</Text>
+
         <AirbnbRating
           count={5}
           reviews={["Awful", "Poor", "Okay", "Good", "Excellent"]}
@@ -234,36 +246,40 @@ const ProductDetails = ({ route: { params } }) => {
             marginBottom: 20,
             marginTop: 20,
           }}
-        >
-          <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reviews</Text>
-          
-        </View>
-
-        <FlatList
-          data={reviews}
-          horizontal={true}
-          renderItem={({ item }) => (
-            <View style={{ marginBottom: 10 }}>
-              <Text style={{ fontWeight: "bold", color: "black" }}>
-                User {item.user}
-              </Text>
-              <Text>Rating: {item.rating}</Text>
-              <Text>Comment: {item.comment}</Text>
-              {user &&
-                user.user &&
-                (user.user.role === "admin" ||
-                  item.user === user.user._id ||
-                  user.user.role === "Guest") && (
+        ></View>
+        {loading ? (
+          <ActivityIndicator size="large" color="blue" />
+        ) : (
+          <FlatList
+            data={reviews}
+            horizontal={true}
+            renderItem={({ item }) => (
+              <View style={{ marginBottom: 100 }}>
+                <Text style={{ fontWeight: "bold", color: "black" }}>
+                  User {item.user}
+                </Text>
+                <Text>Rating: {item.rating}</Text>
+                <Text>Comment: {item.comment}</Text>
+                {user && item.user === user._id && (
                   <TouchableOpacity
                     onPress={() => handleDeleteReview(item._id)}
                   >
-                    <Text style={{ color: "red" }}>Delete</Text>
+                    <Text
+                      style={{
+                        color: "red",
+                        fontWeight: 900,
+                        justifyContent: "flex-end",
+                      }}
+                    >
+                      Delete Comment
+                    </Text>
                   </TouchableOpacity>
                 )}
-            </View>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
+              </View>
+            )}
+            keyExtractor={(item, index) => index.toString()}
+          />
+        )}
       </View>
     </ScrollView>
   );

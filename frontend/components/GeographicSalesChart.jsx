@@ -9,6 +9,7 @@ const GeographicSalesChart = ({ salesByCity }) => {
     name: cityData._id,
     value: cityData.totalSales,
     color: `#${((Math.random() * 0xffffff) << 0).toString(16).padStart(6, '0')}`, // Random color
+    legendFontColor: "white",
   }));
 
   return (

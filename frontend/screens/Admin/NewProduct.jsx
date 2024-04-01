@@ -16,9 +16,7 @@ import { useIsFocused } from "@react-navigation/native";
 import mime from "mime";
 import { createProduct } from "../../redux/actions/otherAction";
 
-
 const NewProduct = ({ navigation, route }) => {
-
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
 
@@ -35,40 +33,43 @@ const NewProduct = ({ navigation, route }) => {
   useSetCategories(setCategories, isFocused);
 
   const disableBtnCondition =
-  !name || !description || !price || !stock || !image;
+    !name || !description || !price || !stock || !image;
 
-const submitHandler = () => {
-  const myForm = new FormData();
-  myForm.append("name", name);
-  myForm.append("description", description);
-  myForm.append("price", price);
-  myForm.append("stock", stock);
-  myForm.append("file", {
-    uri: image,
-    type: mime.getType(image),
-    name: image.split("/").pop(),
-  });
+  const submitHandler = () => {
+    const myForm = new FormData();
+    myForm.append("name", name);
+    myForm.append("description", description);
+    myForm.append("price", price);
+    myForm.append("stock", stock);
+    myForm.append("file", {
+      uri: image,
+      type: mime.getType(image),
+      name: image.split("/").pop(),
+    });
 
-  if (categoryID) myForm.append("category", categoryID);
+    if (categoryID) myForm.append("category", categoryID);
 
-  dispatch(createProduct(myForm));
-};
+    dispatch(createProduct(myForm));
+  };
 
-  const loading = useMessageAndErrorOther(dispatch, navigation, "admindashboard");
+  const loading = useMessageAndErrorOther(
+    dispatch,
+    navigation,
+    "admindashboard"
+  );
 
   useEffect(() => {
     if (route.params?.image) setImage(route.params.image);
   }, [route.params]);
 
   return (
-    <>
+    <View style={{ flex: 1, backgroundColor: colors.color2}}>
       <View
         style={{
-          ...defaultStyle,
-          backgroundColor: colors.color5,
+          backgroundColor: colors.color2,
         }}
       >
-        <Header back={true} showCartButton={false}/>
+        <Header back={true} showCartButton={false} />
 
         {/* Heading */}
         <View style={{ marginBottom: 20, paddingTop: 70 }}>
@@ -78,15 +79,13 @@ const submitHandler = () => {
         <ScrollView
           style={{
             padding: 20,
-            elevation: 10,
             borderRadius: 10,
-            backgroundColor: colors.color3,
+            backgroundColor: colors.color2,
           }}
         >
           <View
             style={{
               justifyContent: "center",
-              height: 650,
             }}
           >
             <View
@@ -100,7 +99,7 @@ const submitHandler = () => {
               <Avatar.Image
                 size={80}
                 style={{
-                  backgroundColor: colors.color1,
+                  backgroundColor: "gray",
                 }}
                 source={{
                   uri: image ? image : null,
@@ -189,7 +188,7 @@ const submitHandler = () => {
         visible={visible}
         setVisible={setVisible}
       />
-    </>
+    </View>
   );
 };
 

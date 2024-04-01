@@ -46,7 +46,7 @@ const Profile = ({ navigation, route }) => {
       case "Orders":
         navigation.navigate("orders");
         break;
-      case "Profile":
+      case "Account":
         navigation.navigate("updateprofile");
         break;
       case "Password":
@@ -90,7 +90,7 @@ const Profile = ({ navigation, route }) => {
   return (
     <>
       <View style={defaultStyle}>
-        <View >
+        <View>
           <Text style={formHeading}>Profile</Text>
         </View>
 
@@ -122,8 +122,8 @@ const Profile = ({ navigation, route }) => {
               <Text style={styles.name}>{user?.name}</Text>
               <Text
                 style={{
-                  fontWeight: 300,
-                  color: colors.color2,
+                  fontWeight: 400,
+                  color: colors.color3,
                 }}
               >
                 {user?.email}
@@ -147,14 +147,6 @@ const Profile = ({ navigation, route }) => {
                   text={"Password"}
                   icon={"lock"}
                 />
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  margin: 10,
-                  justifyContent: "space-evenly",
-                }}
-              >
                 {user?.role === "admin" && (
                   <ButtonBox
                     handler={navigateHandler}
@@ -175,8 +167,7 @@ const Profile = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.color3,
-    elevation: 7,
+    backgroundColor: colors.color4,
     padding: 30,
     borderRadius: 10,
     alignItems: "center",
@@ -185,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     marginTop: 10,
-    color: colors.color2,
+    color: colors.color3,
   },
 });
 export default Profile;

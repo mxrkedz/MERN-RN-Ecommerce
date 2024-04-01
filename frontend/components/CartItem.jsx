@@ -14,12 +14,11 @@ const CartItem = ({
   id,
   decrementHandler,
   incrementHandler,
-  navigate
+  navigate,
 }) => {
-
-  const formattedAmount = amount.toLocaleString('en-PH', {
-    style: 'currency',
-    currency: 'PHP',
+  const formattedAmount = amount.toLocaleString("en-PH", {
+    style: "currency",
+    currency: "PHP",
     minimumFractionDigits: 2,
   });
   return (
@@ -33,9 +32,9 @@ const CartItem = ({
       <View
         style={{
           width: "40%",
-          backgroundColor: index % 2 === 0 ? colors.color1 : colors.color3,
-          borderTopRightRadius: 100,
-          borderBottomRightRadius: 100,
+          backgroundColor: colors.color3,
+          borderTopRightRadius: 10,
+          borderBottomRightRadius: 70,
         }}
       >
         <Image source={{ uri: imgSrc }} style={style.img} />
@@ -51,7 +50,7 @@ const CartItem = ({
           style={{
             fontSize: 17,
           }}
-          onPress={()=>navigate.navigate("productdetails", {id})}
+          onPress={() => navigate.navigate("productdetails", { id })}
         >
           {name}
         </Text>
@@ -67,13 +66,17 @@ const CartItem = ({
         </Text>
       </View>
       <View style={style.qtyContainer}>
-        <TouchableOpacity onPress={() => decrementHandler(id, name, amount, imgSrc, stock, qty)}>
+        <TouchableOpacity
+          onPress={() => decrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={"minus"} {...iconOptions} />
         </TouchableOpacity>
 
         <Text style={style.qtyText}>{qty}</Text>
 
-        <TouchableOpacity onPress={() => incrementHandler(id, name, amount, imgSrc, stock, qty)}>
+        <TouchableOpacity
+          onPress={() => incrementHandler(id, name, amount, imgSrc, stock, qty)}
+        >
           <Avatar.Icon icon={"plus"} {...iconOptions} />
         </TouchableOpacity>
       </View>
@@ -99,11 +102,12 @@ const style = StyleSheet.create({
     borderColor: colors.color5,
   },
   qtyContainer: {
+    flexDirection: "row", // Arrange items horizontally
     alignItems: "center",
-    width: "20%",
-    height: 80,
     justifyContent: "space-between",
-    alignSelf: "center",
+    width: "10%", // Adjust width as needed
+    alignSelf: "left",
+    marginHorizontal: -15,
   },
 });
 export default CartItem;
