@@ -5,14 +5,16 @@ import {
   defaultStyle,
   colors,
   formHeading,
+  formHeading2,
   inputOptions,
-  formStyles as styles
+  formStyles as styles,
 } from "../styles/styles";
 import { Button, TextInput } from "react-native-paper";
 import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { login } from "../redux/actions/userAction";
 import { useMessageAndErrorUser } from "../utils/hooks";
+import Header from "../components/Header";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -29,7 +31,17 @@ const Login = ({ navigation }) => {
       <View style={defaultStyle}>
         <View style={{ marginBottom: 20 }}>
           <Text style={formHeading}>Login</Text>
+          <TouchableOpacity
+            activeOpacity={0.8}
+            onPress={() => navigation.navigate("signup")}
+          >
+            <Text style={formHeading2}>
+              Don't Have an Account?{" "}
+              <Text style={{ fontWeight: "bold" }}>Sign Up</Text>
+            </Text>
+          </TouchableOpacity>
         </View>
+
         <View style={styles.container}>
           <TextInput
             {...inputOptions}
@@ -50,7 +62,7 @@ const Login = ({ navigation }) => {
             activeOpacity={0.8}
             onPress={() => navigation.navigate("forgetpassword")}
           >
-            <Text style={styles.forget}>Forget Password?</Text>
+            <Text style={styles.forget}>Forgot Password?</Text>
           </TouchableOpacity>
           <Button
             loading={loading}
@@ -61,13 +73,6 @@ const Login = ({ navigation }) => {
           >
             Log In
           </Button>
-          <Text style={styles.or}></Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate("signup")}
-          >
-            <Text style={styles.link}>Sign Up</Text>
-          </TouchableOpacity>
         </View>
       </View>
 

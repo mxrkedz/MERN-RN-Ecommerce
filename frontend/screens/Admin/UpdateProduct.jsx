@@ -17,14 +17,12 @@ import { useMessageAndErrorOther, useSetCategories } from "../../utils/hooks";
 import { getProductDetails } from "../../redux/actions/productAction";
 import { updateProduct } from "../../redux/actions/otherAction";
 
-
 const UpdateProduct = ({ navigation, route }) => {
   const isFocused = useIsFocused();
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
 
   const { product, loading } = useSelector((state) => state.product);
-
 
   const [id] = useState(route.params.id);
   const [name, setName] = useState("");
@@ -36,7 +34,6 @@ const UpdateProduct = ({ navigation, route }) => {
   const [categories, setCategories] = useState([]);
 
   useSetCategories(setCategories, isFocused);
-
 
   const submitHandler = () => {
     dispatch(updateProduct(id, name, description, price, stock, categoryID));
@@ -67,11 +64,11 @@ const UpdateProduct = ({ navigation, route }) => {
     <>
       <View
         style={{
-          ...defaultStyle,
-          backgroundColor: colors.color5,
+          flex: 1,
+          backgroundColor: colors.color2,
         }}
       >
-        <Header back={true} />
+        <Header back={true} showCartButton={false} />
 
         {/* Heading */}
         <View style={{ marginBottom: 20, paddingTop: 70 }}>
@@ -84,9 +81,8 @@ const UpdateProduct = ({ navigation, route }) => {
           <ScrollView
             style={{
               padding: 20,
-              elevation: 10,
               borderRadius: 10,
-              backgroundColor: colors.color3,
+              backgroundColor: colors.color2,
             }}
           >
             <View
@@ -134,13 +130,25 @@ const UpdateProduct = ({ navigation, route }) => {
                 keyboardType="number-pad"
                 onChangeText={setStock}
               />
-
+              <Text
+                style={{
+                  textAlign: "center",
+                  textAlignVertical: "center",
+                  fontWeight: 600,
+                }}
+              >
+                Select Category
+              </Text>
               <Text
                 style={{
                   ...inputStyling,
                   textAlign: "center",
                   textAlignVertical: "center",
+                  fontWeight: 500,
                   borderRadius: 3,
+                  color: colors.color2,
+                  backgroundColor: colors.color3,
+                  elevation: 5,
                 }}
                 onPress={() => setVisible(true)}
               >

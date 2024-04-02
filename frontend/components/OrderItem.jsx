@@ -15,17 +15,20 @@ const OrderItem = ({
   loading,
   i = 0,
 }) => {
+
+  
   return (
     <View
       style={{
         ...styles.container,
-        backgroundColor: i % 2 === 0 ? colors.color2 : colors.color3,
+        backgroundColor:colors.color3,
       }}
     >
       <Text
         style={{
           ...styles.text,
-          backgroundColor: i % 2 === 0 ? colors.color3 : colors.color1,
+          backgroundColor: status === "Preparing" ? "gray" : status === "Shipped" ? "gold" : status === "Delivered" ? "lime" : "black",
+
         }}
       >
         ID - #{id}
@@ -41,7 +44,7 @@ const OrderItem = ({
         <Button
           icon={"update"}
           mode={"outlined"}
-          textColor={i % 2 === 0 ? colors.color3 : colors.color2}
+          textColor={colors.color2}
           style={{
             width: 120,
             alignSelf: "center",
@@ -49,7 +52,7 @@ const OrderItem = ({
           }}
           onPress={() => updateHandler(id)}
           loading={loading}
-          disabled={loading}
+          disabled={loading || status === "Delivered"}
         >
           Update
         </Button>
@@ -62,11 +65,11 @@ const TextBox = ({ title, value, i }) => (
   <Text
     style={{
       marginVertical: 6,
-      color: i % 2 === 0 ? colors.color3 : colors.color2,
+      color: colors.color2,
     }}
   >
     <Text style={{ fontWeight: "900" }}>{title} -</Text>
-    {title === "Price" ? "$" : ""}
+    {title === "Price" ? "₱" : ""}
     {value}
   </Text>
 );

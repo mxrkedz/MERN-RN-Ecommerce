@@ -14,10 +14,10 @@ const Orders = () => {
   const { loading, orders } = useGetOrders(isFocused);
 
   return (
-    <View style={{ ...defaultStyle, backgroundColor: colors.color5 }}>
-      <Header back={true} />
+    <View style={{ flex: 1, backgroundColor: colors.color2 }}>
+      <Header back={true} showCartButton={false}/>
       <View style={{ marginBottom: 20, paddingTop: 70 }}>
-        <Text style={formHeading}>Orders</Text>
+        <Text style={formHeading}>My Orders</Text>
       </View>
 
       {loading ? (

@@ -29,7 +29,7 @@ const ConfirmOrderItem = ({ price, quantity, image, name }) => {
       >
         <Text>{quantity}</Text>
         <Text style={{ marginHorizontal: 10 }}>x</Text>
-        <Text>${price}</Text>
+        <Text>₱{price.toLocaleString('en-PH', { minimumFractionDigits: 2 })}</Text>
       </View>
     </View>
   );

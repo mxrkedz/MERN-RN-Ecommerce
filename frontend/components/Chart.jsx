@@ -1,4 +1,4 @@
-import { View, Dimensions } from "react-native";
+import { View, Dimensions, Text, StyleSheet } from "react-native";
 import React from "react";
 import { PieChart } from "react-native-chart-kit";
 import { colors } from "../styles/styles";
@@ -26,7 +26,9 @@ const Chart = ({ inStock = 0, outOfStock = 0 }) => {
   };
 
   return (
-    <View>
+    <View style={styles.container}>
+      <Text style={styles.chartTitle}>Sales Per Day</Text>
+
       <PieChart
         data={data}
         width={screenWidth}
@@ -39,5 +41,21 @@ const Chart = ({ inStock = 0, outOfStock = 0 }) => {
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: colors.color3,
+    borderRadius: 20,
+    paddingVertical: 10,
+  },
+  chartTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: colors.color2,
+    marginBottom: 10,
+  },
+});
 
 export default Chart;

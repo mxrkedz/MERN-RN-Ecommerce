@@ -14,6 +14,10 @@ const ProductListItem = ({
   category,
   imgSrc,
 }) => {
+  const formattedPrice = price.toLocaleString(undefined, {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  });
   const [openModal, setOpenModal] = useState(false);
 
   return (
@@ -21,12 +25,12 @@ const ProductListItem = ({
       <TouchableOpacity
         activeOpacity={0.9}
         onLongPress={() => setOpenModal((prev) => !prev)}
-        onPress = {() =>navigate.navigate("productdetails",{id})}
+        onPress={() => navigate.navigate("productdetails", { id })}
       >
         <View
           style={{
             ...styles.container,
-            backgroundColor: i % 2 === 0 ? colors.color1 : colors.color3,
+            backgroundColor: i % 2 === 0 ? "gray" : colors.color3,
           }}
         >
           <Image
@@ -47,7 +51,7 @@ const ProductListItem = ({
             }}
             numberOfLines={1}
           >
-            ${price}
+            ₱{formattedPrice}
           </Text>
 
           <Text
@@ -101,8 +105,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: "center",
     padding: 10,
-    borderRadius: 10,
-    marginVertical: 10,
+    marginVertical: 0,
   },
 });
 

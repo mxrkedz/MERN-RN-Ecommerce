@@ -4,6 +4,7 @@ import {
   defaultStyle,
   colors,
   formHeading,
+  formHeading2,
   inputOptions,
   formStyles as styles,
 } from "../styles/styles";
@@ -12,6 +13,7 @@ import Footer from "../components/Footer";
 import { useDispatch } from "react-redux";
 import { useMessageAndErrorOther } from "../utils/hooks";
 import { resetPassword } from "../redux/actions/otherAction";
+import Header from "../components/Header";
 
 const Verify = ({ navigation }) => {
   const [otp, setOtp] = useState("");
@@ -26,8 +28,13 @@ const Verify = ({ navigation }) => {
   return (
     <>
       <View style={{ ...defaultStyle, backgroundColor: colors.color2 }}>
-        <View style={{ marginBottom: 20 }}>
+        <Header showCartButton={false} back={true} />
+        <View style={{ marginBottom: 20, marginTop: 60 }}>
           <Text style={formHeading}>Reset Password</Text>
+          <Text style={formHeading2}>
+              An OTP has been sent to your{" "}
+              <Text style={{ fontWeight: "bold" }}>email</Text>
+            </Text>
         </View>
         <View style={styles.container}>
           <TextInput
@@ -48,7 +55,7 @@ const Verify = ({ navigation }) => {
             activeOpacity={0.8}
             onPress={() => navigation.navigate("forgetpassword")}
           >
-            <Text style={styles.forget}>Forget Password?</Text>
+            <Text style={styles.forget}>Resend OTP</Text>
           </TouchableOpacity>
           <Button
             loading={loading}
@@ -59,13 +66,6 @@ const Verify = ({ navigation }) => {
           >
             Reset Password
           </Button>
-          <Text style={styles.or}></Text>
-          <TouchableOpacity
-            activeOpacity={0.8}
-            onPress={() => navigation.navigate("forgetpassword")}
-          >
-            <Text style={styles.link}>Resend OTP</Text>
-          </TouchableOpacity>
         </View>
       </View>
 

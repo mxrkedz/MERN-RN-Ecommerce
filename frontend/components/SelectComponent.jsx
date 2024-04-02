@@ -69,15 +69,14 @@ import {
     heading: {
       textAlign: "center",
       marginVertical: 10,
-      backgroundColor: colors.color3,
+      backgroundColor: colors.color2,
       borderRadius: 5,
       padding: 3,
-      color: colors.color2,
+      color: colors.color3,
     },
     text: {
       fontSize: 17,
-      fontWeight: "100",
-      textTransform: "uppercase",
+      fontWeight: "500",
       marginVertical: 10,
     },
   });

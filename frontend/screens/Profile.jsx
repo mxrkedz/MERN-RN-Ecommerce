@@ -1,27 +1,41 @@
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import React, { useEffect, useState } from "react";
-import { defaultStyle, formHeading, colors, defaultImg } from "../styles/styles";
+import {
+  defaultStyle,
+  formHeading,
+  colors,
+  defaultImg,
+} from "../styles/styles";
 import { Avatar, Button } from "react-native-paper";
 import ButtonBox from "../components/ButtonBox";
 import Footer from "../components/Footer";
 import Loader from "../components/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import { loadUser, logout } from "../redux/actions/userAction";
-import { useMessageAndErrorOther, useMessageAndErrorUser } from "../utils/hooks";
+import {
+  useMessageAndErrorOther,
+  useMessageAndErrorUser,
+} from "../utils/hooks";
 import { useIsFocused } from "@react-navigation/native";
 import mime from "mime";
 import { updatePic } from "../redux/actions/otherAction";
 
 const Profile = ({ navigation, route }) => {
   const { user } = useSelector((state) => state.user);
-  const  [avatar, setAvatar]  = useState(user?.avatar ? user.avatar.url : defaultImg);
+  const [avatar, setAvatar] = useState(
+    user?.avatar ? user.avatar.url : defaultImg
+  );
 
   const dispatch = useDispatch();
   const isFocused = useIsFocused();
   const loading = useMessageAndErrorUser(navigation, dispatch, "login");
 
   const logoutHandler = () => {
-    dispatch(logout())
+    dispatch(logout());
+  };
+
+  const openDrawer = () => {
+    navigation.openDrawer();
   };
 
   const navigateHandler = (text) => {
@@ -32,7 +46,7 @@ const Profile = ({ navigation, route }) => {
       case "Orders":
         navigation.navigate("orders");
         break;
-      case "Profile":
+      case "Account":
         navigation.navigate("updateprofile");
         break;
       case "Password":
@@ -76,7 +90,7 @@ const Profile = ({ navigation, route }) => {
   return (
     <>
       <View style={defaultStyle}>
-        <View style={{ marginBottom: 20 }}>
+        <View>
           <Text style={formHeading}>Profile</Text>
         </View>
 
@@ -96,17 +110,20 @@ const Profile = ({ navigation, route }) => {
                   navigation.navigate("camera", { updateProfile: true })
                 }
               >
-                <Button 
-                disabled={loadingPic}
-                loading={loadingPic} 
-                textColor={colors.color1}>Change Photo</Button>
+                <Button
+                  disabled={loadingPic}
+                  loading={loadingPic}
+                  textColor={colors.color1}
+                >
+                  Change Photo
+                </Button>
               </TouchableOpacity>
 
               <Text style={styles.name}>{user?.name}</Text>
               <Text
                 style={{
-                  fontWeight: 300,
-                  color: colors.color2,
+                  fontWeight: 400,
+                  color: colors.color3,
                 }}
               >
                 {user?.email}
@@ -117,13 +134,18 @@ const Profile = ({ navigation, route }) => {
                 style={{
                   flexDirection: "row",
                   margin: 10,
-                  justifyContent: "space-between",
+                  justifyContent: "space-evenly",
                 }}
               >
                 <ButtonBox
                   handler={navigateHandler}
-                  text={"Orders"}
-                  icon={"format-list-bulleted-square"}
+                  text={"Account"}
+                  icon={"account-edit"}
+                />
+                <ButtonBox
+                  handler={navigateHandler}
+                  text={"Password"}
+                  icon={"lock"}
                 />
                 {user?.role === "admin" && (
                   <ButtonBox
@@ -133,29 +155,6 @@ const Profile = ({ navigation, route }) => {
                     reverse={true}
                   />
                 )}
-                <ButtonBox
-                  handler={navigateHandler}
-                  text={"Profile"}
-                  icon={"pencil"}
-                />
-              </View>
-              <View
-                style={{
-                  flexDirection: "row",
-                  margin: 10,
-                  justifyContent: "space-evenly",
-                }}
-              >
-                <ButtonBox
-                  handler={navigateHandler}
-                  text={"Password"}
-                  icon={"pencil"}
-                />
-                <ButtonBox
-                  handler={navigateHandler}
-                  text={"Sign Out"}
-                  icon={"exit-to-app"}
-                />
               </View>
             </View>
           </>
@@ -168,8 +167,7 @@ const Profile = ({ navigation, route }) => {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: colors.color3,
-    elevation: 7,
+    backgroundColor: colors.color4,
     padding: 30,
     borderRadius: 10,
     alignItems: "center",
@@ -178,7 +176,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     marginTop: 10,
-    color: colors.color2,
+    color: colors.color3,
   },
 });
 export default Profile;

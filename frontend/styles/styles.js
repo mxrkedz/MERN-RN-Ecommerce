@@ -1,7 +1,7 @@
 import { StyleSheet, Platform, StatusBar } from "react-native";
 
 export const colors = {
-  color1: "#248232",
+  color1: "#FF9F1C",
   color1_light: "rgba(40, 149, 62,1)",
   color1_light2: "rgba(43, 168, 74,0.8)",
   color2: "#FCFFFC",
@@ -12,9 +12,10 @@ export const colors = {
 };
 
 export const defaultStyle = StyleSheet.create({
-  padding: 35,
+  padding: 30,
   paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
   flex: 1,
+  marginVertical: -20,
   backgroundColor: colors.color2,
 });
 
@@ -29,10 +30,19 @@ export const formHeading = StyleSheet.create({
   fontSize: 25,
   fontWeight: "500",
   textAlign: "center",
-  backgroundColor: colors.color2,
+  backgroundColor: colors.color4,
   color: colors.color3,
   padding: 1,
   borderRadius: 5,
+});
+
+export const formHeading2 = StyleSheet.create({
+  fontSize: 15,
+  fontWeight: "400",
+  textAlign: "center",
+  backgroundColor: colors.color4,
+  color: colors.color3,
+  padding: 1,
 });
 
 export const inputOptions = {
@@ -45,17 +55,16 @@ export const formStyles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    backgroundColor: colors.color3,
+    backgroundColor: colors.color4,
     borderRadius: 10,
-    justifyContent: "center",
-    elevation: 10,
+    justifyContent: "top",
   },
   forget: {
-    color: colors.color2,
+    color: colors.color3,
     marginHorizontal: 20,
     marginVertical: 10,
     alignSelf: "flex-end",
-    fontWeight: "100",
+    fontWeight: "500",
   },
   btn: {
     backgroundColor: colors.color1,
@@ -69,7 +78,7 @@ export const formStyles = StyleSheet.create({
     color: colors.color2,
   },
   link: {
-    color: colors.color2,
+    color: colors.color3,
     alignSelf: "center",
     fontSize: 18,
     textTransform: "uppercase",
