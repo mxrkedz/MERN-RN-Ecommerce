@@ -22,14 +22,14 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.emmanuelfran.myrclothing"
+      "package": "com.messsy.myrclothing"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "extra": {
       "eas": {
-        "projectId": "b66eb5d2-a187-4cf6-ac39-26622b77eb55"
+        "projectId": "b492891e-2c35-4d0a-bc6d-1f5ecda602ab"
       }
     }
   }
