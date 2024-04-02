@@ -15,11 +15,10 @@ export const store = configureStore({
   },
 });
 
-// export const server = "https://mobileproj-server.onrender.com/api/v1";
+export const server = "https://mobileproj-server.onrender.com/api/v1";
 
 // Tenda Wifi
 // export const server = "http://192.168.0.111:5000/api/v1";
 
 // LAN
-export const server = "http://192.168.100.4:5000/api/v1";
-
+// export const server = "http://192.168.100.4:5000/api/v1";
