@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, ScrollView } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { useIsFocused } from "@react-navigation/native";
+import Toast from "react-native-toast-message";
 import { useDispatch, useSelector } from "react-redux";
 import {
   updateCategory,
@@ -24,6 +25,15 @@ const UpdateCategory = ({ navigation, route }) => {
   const [loading, setLoading] = useState(false);
   const [category, setCategoryName] = useState("");
 
+  const showToast = (type, comment) => {
+    Toast.show({
+      type: type,
+      text1: comment,
+      visibilityTime: 3000,
+      autoHide: true,
+    });
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -41,8 +51,22 @@ const UpdateCategory = ({ navigation, route }) => {
 
   const { category: categoryDetails } = useSelector((state) => state.other);
 
-  const submitHandler = () => {
-    dispatch(updateCategory(id, category));
+  const submitHandler = async () => {
+    if (!category) {
+      showToast("error", "Please enter a category name!");
+      setIsLoading(false);
+      return;
+    }
+
+    try {
+      await dispatch(updateCategory(id, category));
+      showToast("success", "Category Updated Successfully!");
+    } catch (error) {
+      console.error("Error updating category:", error);
+      showToast("error", "Failed to update category");
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -75,10 +99,10 @@ const UpdateCategory = ({ navigation, route }) => {
         ) : (
           <View
             style={{
-                flex: 1,
-                padding: 20,
-                backgroundColor: colors.color2,
-                borderRadius: 10,
+              flex: 1,
+              padding: 20,
+              backgroundColor: colors.color2,
+              borderRadius: 10,
             }}
           >
             <View

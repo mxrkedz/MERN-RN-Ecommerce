@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { View, TextInput, Button, StyleSheet } from "react-native";
+import { View, TextInput, Button, StyleSheet, ScrollView } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { Rating } from "react-native-ratings";
 import Toast from "react-native-toast-message";
@@ -30,7 +30,7 @@ const Review = () => {
 
   const handleAddReview = async () => {
     if (!comment) {
-      showToast("error", "Please enter a review.");
+      showToast("error", "Please enter a comment.");
       setIsLoading(false);
       return;
     }
@@ -60,33 +60,37 @@ const Review = () => {
   }, [dispatch, product.product._id]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.formContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Add a review..."
-          value={comment}
-          onChangeText={setNewReviewText}
-        />
-        <View style={{ flexDirection: "row", alignItems: "center" }}>
-          <Rating
-            startingValue={rating}
-            onFinishRating={(value) => setRating(value)}
-            imageSize={20}
-            style={{ paddingVertical: 5 }}
+      <View style={styles.container}>
+        <View style={styles.formContainer}>
+          <TextInput
+            style={styles.input}
+            placeholder="Add a review..."
+            value={comment}
+            onChangeText={setNewReviewText}
           />
-        </View>
-        <View
-          style={{ flexDirection: "row", alignItems: "center", marginTop: 10 }}
-        >
-          <Button
-            title={"Post Review"}
-            onPress={handleAddReview}
-            disabled={isLoading}
-          />
+          <View style={{ flexDirection: "row", alignItems: "center" }}>
+            <Rating
+              startingValue={rating}
+              onFinishRating={(value) => setRating(value)}
+              imageSize={20}
+              style={{ paddingVertical: 5 }}
+            />
+          </View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
+            <Button
+              title={"Post Review"}
+              onPress={handleAddReview}
+              disabled={isLoading}
+            />
+          </View>
         </View>
       </View>
-    </View>
   );
 };
 

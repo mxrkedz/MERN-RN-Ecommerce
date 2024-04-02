@@ -225,7 +225,9 @@ const ProductDetails = ({ route: { params } }) => {
           </TouchableOpacity>
         </View>
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Leave a Review</Text>
-        <Review />
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Review />
+        </ScrollView>
 
         {/* Rating */}
         <Text style={{ fontSize: 20, fontWeight: "bold" }}>Reviews</Text>
@@ -252,14 +254,20 @@ const ProductDetails = ({ route: { params } }) => {
         ) : (
           <FlatList
             data={reviews}
-            horizontal={true}
+            horizontal={false}
             renderItem={({ item }) => (
-              <View style={{ marginBottom: 100 }}>
+              <View style={{ marginBottom: 30 }}>
                 <Text style={{ fontWeight: "bold", color: "black" }}>
-                  User {item.user}
+                  User: {item.user}
                 </Text>
-                <Text>Rating: {item.rating}</Text>
-                <Text>Comment: {item.comment}</Text>
+                <Text>
+                  <Text style={{ fontWeight: "bold" }}>Rating:</Text>{" "}
+                  {item.rating}/5
+                </Text>
+                <Text>
+                  <Text style={{ fontWeight: "bold" }}>Comment:</Text>{" "}
+                  {item.comment}
+                </Text>
                 {user && item.user === user._id && (
                   <TouchableOpacity
                     onPress={() => handleDeleteReview(item._id)}

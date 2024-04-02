@@ -146,7 +146,7 @@ const StackScreen = () => {
         <Stack.Screen name="updateprofile" component={UpdateProfile} />
         <Stack.Screen name="changepassword" component={ChangePassword} />
         <Stack.Screen name="orders" component={Orders} />
-        <Stack.Screen name="camera" component={Camera} />
+        <Stack.Screen name="camera" component={Camera}  />
 
         {/* Password Resetting Route */}
         <Stack.Screen name="forgetpassword" component={ForgetPassword} />

@@ -32,7 +32,7 @@ const CameraComponent = ({ navigation, route }) => {
       return navigation.navigate("profile", {
         image: data.assets[0].uri,
       });
-    if (route.params?.categories)
+    if (route.params?.newCategory)
       return navigation.navigate("categories", {
         image: data.assets[0].uri,
       });
@@ -58,7 +58,7 @@ const CameraComponent = ({ navigation, route }) => {
       return navigation.navigate("profile", {
         image: data.uri,
       });
-    if (route.params?.categories)
+    if (route.params?.newCategory)
       return navigation.navigate("categories", {
         image: data.uri,
       });
