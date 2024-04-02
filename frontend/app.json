@@ -11,7 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -19,11 +21,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.emmanuelfran.myrclothing"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "owner": "mxrkedz"
+    "extra": {
+      "eas": {
+        "projectId": "b66eb5d2-a187-4cf6-ac39-26622b77eb55"
+      }
+    }
   }
 }
