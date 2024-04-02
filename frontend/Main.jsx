@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import "react-native-gesture-handler";
 import {
   DrawerContentScrollView,
   DrawerItem,
@@ -101,10 +100,10 @@ const DrawerContent = (props) => {
         )}
       </View>
       <DrawerItem
-            label="Home"
-            onPress={() => navigation.navigate("home")}
-            labelStyle={{ color: colors.color2, fontWeight: "500" }}
-          />
+        label="Home"
+        onPress={() => navigation.navigate("home")}
+        labelStyle={{ color: colors.color2, fontWeight: "500" }}
+      />
       {user ? (
         <>
           <DrawerItem
@@ -178,7 +177,7 @@ const Main = () => {
         initialRouteName="profile"
         drawerContent={(props) => <DrawerContent {...props} />}
       >
-        <Drawer.Screen name=" " component={StackScreen}/>
+        <Drawer.Screen name=" " component={StackScreen} />
       </Drawer.Navigator>
       <Toast position="top" />
     </NavigationContainer>

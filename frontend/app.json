@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "frontend",
-    "slug": "frontend",
+    "name": "MYR Clothing",
+    "slug": "myr-clothing",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,14 +22,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.mxrkedz.frontend"
+      "package": "com.mxrkedz.myrclothing"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
+    "owner": "mxrkedz",
     "extra": {
       "eas": {
-        "projectId": "99373b2f-d192-4fe3-a279-4fce74ac05fd"
+        "projectId": "4c8c9647-293d-4997-b497-d21416c7d621"
       }
     }
   }
